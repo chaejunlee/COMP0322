@@ -21,3 +21,7 @@ Though, our system does not have any data of real bus system.
 We are to make our booking system reflect the real system with the knowledges we learn throughout the course of COMP0332.
 
 Our goal is to make "production-ready" bus booking system for Latin languages speaking foreigners.
+
+## ER Diagram V1
+
+![KNU_BUS_DIAGRAM](resource/KNU_BUS_ERD_v1.png)
