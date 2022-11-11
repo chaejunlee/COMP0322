@@ -1,0 +1,174 @@
+ER schema 수정사항
+
+모든 대부분의 relationship이 TRIP entity와만 연결되어 있어서 데이터 조회의 어려움이 있어 diagram 변경
+
+#ENTITY
+버스 시간표를 저장하는 TIMETABLE이 필요함에 따라 TIMETABLE entity 추가
+TIMETABLE
+  - Tid [primary key]
+  - date
+  - depart_time
+  - arrive_time 
+ 설명
+ > TIMETABLE을 구분짓기 위한 Tid 저장
+ > 버스가 운행하는 날짜를 저장하기 위한 date attribute
+ > 버스의 도착시간, 출발시간을 저장하기 위한 depart_time, arrive_tiem attribute
+
+부산-서울 과 같은 경로 정보들을 저장하는 ROUTE entity 추가
+ROUTE
+  - Rid [primary key]  
+ 설명
+ > Route를 구분짓기 위한 Rid 저장
+
+bus type, 탑승자 age, 경로에 대한 정보가 저장된 PRICE entity 추가
+PRICE
+ - Pid [primary key]
+ - BusType
+ - Age
+ - Fee
+설명
+ > Price를 구분짓기 위한 Pid 저장
+ > 가격을 결정하는 요소 중 하나인 BusType(우등, 일반) attribute
+ > 가격을 결정하는 요소 중 하나인 Age(어른, 청소년, 어린이) attribute
+ > BusType, Age, Route에 따라 정해지는 가격을 저장하기 위한 Fee attribute
+
+예약된 내역들을 저장하는 RESERVATION entity 추가
+RESERVATION [Weak Entity]
+ 설명
+ > TIMETABLE의 예매정보, ACCOUT의 정보, SEAT 정보를 모두 저장하는 entity
+ > 각각 entity의 FK를 조합한 superkey를 key로 갖습니다.
+ > 이전의 TICKET ENTITY와 비슷한 역할
+
+위의 entity 추가로 TRIP entity와 TICKET entity는 불필요하여 삭제
+TRIP entity와 TICKET entity가 연결된 모든 relationship 삭제
+
+SEAT entity를 독립적인 entity로 둠
+SEAT
+ - Sid [primary key]
+ - Rownumber
+ - Colnumber
+ 설명
+ > Sid는 seat를 구분짓기 위해 저장
+ > Rownumber는 버스 좌석의 행 번호를 뜻함
+ > Colnumber는 버스 좌석의 열번호를 뜻함
+
+EMPLOYEE entity에 department attribute를 지우고 salary attribute 추가
+STATION entity에 STid를 지우고 STname을 pimary key로 사용, Address와 Zipcode attribute 추가
+
+ENTITY들의 attribute의 의미를 잘 포함하기 위해 attribute name들을 변경
+ENTITY간의 relation의 의미를 잘 표현하기 위해 relation name들을 변경
+
+
+#Relationship
+ACCOUNT Relationship
+ACCOUNT, RESERVATION 간의 RESERVES relationship
+ > 1개의 ACCOUNT가 여러 RESERVATION을 할 수 있으므로 1:N 관계
+ > Weak Entity인 RESERVATION은 모두 RESERVES relationship에 참여
+ > 모든 ACCOUNT가 RESERATION을 할 필요는 없으므로 부분 참여
+
+RESERVATION Relationship
+RESERVATION, SEAT 간의 BOOK relationship
+ > SEAT TABLE은 버스 정보는 저장하고 있지 않기 때문에 한개의 좌석에 대하여 여러개의 RESERVATION이 참여가능 하므로 1:N 관게
+ > 모든 SEAT가 예약되지 않는 경우도 있으므로 부분 참여
+ > Weak Entity인 RESERVATION은 모두 Book relationship에 참여
+
+RESERVATION, TIMETABLE 간의 DESCRIBE reltionship
+ > 하나의 TIMETABLE에 여러개의 RESRVATION이 가질 수 있으므로 1:N 관계
+ > 모든 TIMETABLE이 예약되지 않은 경우도 있으므로 부분 참여
+ > Weak Entity인 RESERVATION은 모두 Describe relationship에 참여
+
+TIMETABLE Relationship
+TIMETABLE, BUS 간의 ASSIGNS relationship
+ > 하나의 버스가 여러 TIMETABLE에 존재할 수 있으므로 1:N 관계
+ > 존재하는 모든 TIMETABLE은 버스가 있어야 하므로 전체참여
+ > 모든 BUS가 TIMETABLE에 배치될 필요는 없으므로 부분 참여
+
+TIMETABLE, ROUTE 간의 DESCRIBE relationship
+ > 하나의 ROUTE에 여러개의 TIMETABLE이 존재할 수 있으므로 1:N 관계
+ > 모든 TIMETABLE은 ROUTE와 mapping 되므로 전체참여
+ > 모든 ROUTE가 TIMETABLE에 있는게 아니므로 부분참여
+
+BUS Relationship
+BUS, EMPLOYEE 간의 DRIVES relationship
+ > BUS 하나에는 여러명의 EMPLOYEE가, EMPLOYEE 한명이 여러대의 BUS를 운행할 수 있으므로 M:N 관계
+ > EMPLOYEE가 매칭되지 않음 버스(운행중이지 않은 버스), BUS를 운행하지 않는 EMPLOYEE가 있을수 있으므로 둘다 부분 참여
+
+EMPLOYEE Relationship
+EMPLOYEE, STATION 간의 WORKS_AT relationship
+ > STATION 한개에 근무하는 EMPLOYEE가 여러명 일 수 있으므로 1:N 관계
+ > EMPLOYEE가 없는 STATION은 없고 일하는 STATION이 없는 EMPLOYEE는 없으므로 두개 다 전체 참여
+
+ROUTE Relationship
+ROUTE, STATION 간의 DEPARTS_FROM relationship
+ > STATION 하나당 여러개의 도착 ROUTE가 존재하므로 1:N 관계
+ > 모든 STATION이 ROUTE의 도착역이 되는 것은 아니므로 부분참여
+ > 모든 ROUTE는 도착 STATION을 가지므로 전체참여
+
+ROUTE, STATION 간의 ARRIVES _AT relationship
+ > STATION 하나당 여러개의 출발 ROUTE가 존재하므로 1:N 관계
+ > 모든 STATION이 ROUTE의 출발역이 되는 것은 아니므로 부분참여
+ > 모든 ROUTE는 출발 STATION을 가지므로 전체참여
+
+ROUTE, PRICE 간의 PAY relationship
+ > ROUTE 다른 요인에 따라 여러개의 PRICE를 가지므로 1:N 관계
+ > PRICE는 반드시 ROUTE가 있어야 하므로 전체참여
+ > PRICE가 없는 ROUTE는 존재하지 않으므로 전체참여
+
+------------------------------------------------------------------------------------------------
+mapping 정보
+
+1. mapping regular entity types
+Strong entity type인 ACCOUNT, SEAT, TIMETABLE, BUS, EMPLOYEE, STATION, ROUTE, PRICE relation을 생성하고 primary key 표시
+
+2. mapping of weak entity types
+Weak entity type인 RESERVATION에 owner relation인 EMPLOYEE, SEAT, TIMETABLE의 pk를 foreign key로 포함
+
+3. mapping of binary 1:1 relationship은 없으므로 생략
+
+4. mapping of binary 1:N relationship types
+binary 1:N 관계에는 HAS, ASSIGNS, WORKS_AT, DEPARTS_FROM, ARRIVES_AT, PAY relation들이 있다.
+
+HAS
+ROUTE의 primary key Rid를 TIMETABLE에 foreign key TRid로 둔다.
+
+ASSIGNS
+BUS의 primary key Bid를 TIMETABLE에 foreign key TBid로 둔다
+
+WORKS_AT
+STATION의 primary key STname을 EMPLOYEE에 foreign key ESname으로 둔다.
+
+DEPARTS_FROM
+STATION의 primary key STname을 ROUTE에 foreign key Dstation으로 둔다.
+attribute Dstation과 DPlatform 역시 ROUTE의 attribute로 가져온다
+
+ARRIVES_AT
+STATION의 primary key STname을 ROUTE에 foreign key Astation으로 둔다.
+attribute Astation과 APlatform 역시 ROUTE의 attribute로 가져온다
+
+PAY
+ROUTE의 primary key Rid를 PRICE에 forein key PRid로 둔다.
+
+5. mapping of binary M:N relation types
+DRIVES
+DRIVES를 새로운 relation으로 만들고 DRIVES relationship에 참여하는 BUS와 EMPLOYEE의 pk를 foreignkey로 둔다
+DRIVES의 attribute hours를 attribute로 추가한다.
+
+6. mapping of multivalued attribute은 없으므로 생략
+
+7. mapping of N-ary relationship types는 없으므로 생략
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,6 +22,6 @@ We are to make our booking system reflect the real system with the knowledges we
 
 Our goal is to make "production-ready" bus booking system for Latin languages speaking foreigners.
 
-## ER Diagram V1
+## ER Diagram V2
 
-![KNU_BUS_DIAGRAM](resource/KNU_BUS_ERD_v1.png)
+![KNU_BUS_DIAGRAM](phase-2/Team5-er-diagram.png)
