@@ -1657,7 +1657,7 @@ INSERT INTO EMPLOYEE VALUES('849921069','yeongsik','seo',83000,'taebaekyeok');
 INSERT INTO EMPLOYEE VALUES('928531107','minjae','nam',88000,'suwonyeok');
 INSERT INTO EMPLOYEE VALUES('559851349','jeongsook','kwak',51000,'kangreungyeok');
 INSERT INTO EMPLOYEE VALUES('700346126','sangcheol','ju',81000,'yonginyeok');
-INSERT INTO EMPLOYEE VALUES('313313537','병cheol','song',57000,'yonginyeok');
+INSERT INTO EMPLOYEE VALUES('313313537','byungcheol','song',57000,'yonginyeok');
 INSERT INTO EMPLOYEE VALUES('540292733','hyeonji','lim',93000,'gosungyeok');
 INSERT INTO EMPLOYEE VALUES('618229498','sangho','yi',39000,'taeanyeok');
 INSERT INTO EMPLOYEE VALUES('959756173','chunja','son',62000,'yicheonyeok');
