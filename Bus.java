@@ -68,23 +68,23 @@ public class Bus {
 			
 			System.out.println("----------------------- MENU -----------------------");
 			System.out.println("<Login stage>");
-			System.out.println("1.  login");	
-			System.out.println("2.  find ID(email)\n");
+			System.out.println(" 1. Login");	
+			System.out.println(" 2. Find ID(email)\n");
 			
 			System.out.println("<Search bus information>");
-			System.out.println("3. Query possible station to move by bus");	// document에서 11번 query
-			System.out.println("4.  Query bus type by departing/arriving station");	
-			System.out.println("5.  Query detail bus information by departing/arriving station");	// document에서 6번 query
-			System.out.println("6.  Query bus seat information by departing/arriving station, date and time\n");	// document에서 5번 query
+			System.out.println(" 3. Query possible arrivals (arriving station) with departure (departing station)");	// document에서 11번 query
+			System.out.println(" 4. Query bus type with departing/arriving station");	
+			System.out.println(" 5. Query detailed bus information with departing/arriving station");	// document에서 6번 query
+			System.out.println(" 6. Query bus seat information with departing/arriving station, date and time\n");	// document에서 5번 query
 			
 			System.out.println("<Find my reservation information>");
-			System.out.println("7.  Reservation create");	
-			System.out.println("8.  Reservatio update");
-			System.out.println("9.  Reservation delete");
-			System.out.println("10.  Find my Reservation information");	// document에서 3번 query
-			System.out.println("11  Show detail information of my ticket\n");	// document에서 10번 query
+			System.out.println(" 7. Create reservation");	
+			System.out.println(" 8. Update reservation ");
+			System.out.println(" 9. Delete reservation ");
+			System.out.println("10. Find my reservation information");	// document에서 3번 query
+			System.out.println("11. Show detailed information of my ticket\n");	// document에서 10번 query
 			
-			System.out.println("12  Exit BUS SERVICE");
+			System.out.println("12. Exit BUS SERVICE");
 			System.out.println("----------------------------------------------------");
 			
 			System.out.print("Select menu and input a number of menu: ");
