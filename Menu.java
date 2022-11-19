@@ -196,8 +196,104 @@ public class Menu {
 	}
 	
 	public static void funct5(Connection conn, Statement stmt) {
-		// input your code
-		System.out.println("func5\n\n");
+		System.out.println("1. Find a default fee of a route with departure and arrival");
+		System.out.println("2. Find a detailed fee of a route with departure and arrival");
+		System.out.println("3. Find a detailed fee of a route with timetable ID");
+		
+		String mode = sc.next();
+		
+		String query = "";
+		String departure = "", arrival = "", Tid = "";
+		
+		switch (mode) {
+		case "2":
+			System.out.print("Departure: ");
+			departure = sc.next();
+			System.out.print("Arrival: ");
+			arrival = sc.next();
+			
+			query = "select BUS_ID, BUS_TYPE, AGE, FEE "
+					+ "from "
+					+ "(SELECT "
+					+ "    B.BID AS BUS_ID, "
+					+ "    B.BCOMPANY AS BUS_COMPANY, "
+					+ "    B.BTYPE AS BUS_TYPE "
+					+ "FROM ROUTE RO, TIMETABLE T, BUS B "
+					+ "WHERE RO.DSTATION = '" + departure + "' AND RO.ASTATION = '" + arrival + "' "
+					+ "AND T.TRID = RO.RID "
+					+ "AND B.BID = T.TBID) "
+					+ "left join  "
+					+ "(SELECT distinct P.AGE AS AGE, "
+					+ "    P.BUSTYPE as BUS_TYPE2, "
+					+ "    P.FEE as FEE "
+					+ "FROM PRICE P, ROUTE RO "
+					+ "WHERE RO.DSTATION = '" + departure + "' AND RO.ASTATION = '" + arrival + "' "
+					+ "AND RO.RID = P.PRID "
+					+ "ORDER BY AGE DESC, BUSTYPE DESC) "
+					+ "ON (BUS_TYPE = BUS_TYPE2) "
+					+ "ORDER BY BUS_ID ASC, AGE DESC";
+			break;
+			
+		case "3":
+			System.out.print("TID: ");
+			Tid = sc.next();
+			query = "SELECT P.AGE, P.BUSTYPE, P.FEE "
+					+ "FROM TIMETABLE T, PRICE P, BUS B "
+					+ "WHERE T.TID = " + Tid + " "
+					+ "AND T.TBID = B.BID "
+					+ "AND T.TRID = P.PRID "
+					+ "AND B.BTYPE = P.BUSTYPE "
+					+ "ORDER BY AGE DESC";
+			break;
+			
+		default: // including 1
+			System.out.print("Departure: ");
+			departure = sc.next();
+			System.out.print("Arrival: ");
+			arrival = sc.next();
+			
+			query = "SELECT distinct P.AGE AS AGE, "
+					+ "    P.BUSTYPE as BUS_TYPE, "
+					+ "    P.FEE as FEE "
+					+ "FROM PRICE P, ROUTE RO "
+					+ "WHERE RO.DSTATION = '" + departure +"' AND RO.ASTATION = '" + arrival + "' "
+					+ "AND RO.RID = P.PRID "
+					+ "ORDER BY AGE DESC, BUSTYPE DESC";
+		}
+		
+		try {
+			StringBuffer Prices = new StringBuffer();
+			rs = stmt.executeQuery(query);
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cnt = rsmd.getColumnCount();
+			for (int i =1;i<=cnt;i++){
+				System.out.print(rsmd.getColumnName(i) + "    ");
+			}
+			System.out.print("\n");
+			
+			if (mode.equals("2")) {
+				while (rs.next()){
+					String BusId = rs.getString(1);
+					String BusType = rs.getString(2);
+					String Age = rs.getString(3);
+					int Fee = rs.getInt(4);
+					Prices.append(BusId + "    " + BusType + "    " + Age + "    " + Fee + "\n");
+				}
+			} else {
+				while (rs.next()){
+					String Age = rs.getString(1);
+					String BusType = rs.getString(2);
+					Integer Fee = rs.getInt(3);
+					Prices.append(Age + "    " + BusType + "    " + Fee.toString() + "\n");
+				}
+			}
+			System.out.println(!Prices.isEmpty() ? Prices.toString() : "Couldn't find any prices");
+			
+		} catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public static void funct6(Connection conn, Statement stmt) {
