@@ -83,7 +83,9 @@ public class Menu {
 	}
 	
 	public static void funct1(Connection conn, Statement stmt) {
+		System.out.print("Email: ");
 		String email = sc.next();
+		System.out.print("Password: ");
 		String password = sc.next();
 		
 		String query = "SELECT AID" +
@@ -152,8 +154,45 @@ public class Menu {
 	}
 	
 	public static void funct4(Connection conn, Statement stmt) {
-		// input your code
-		System.out.println("func4\n\n");
+		System.out.print("Departure: ");
+		String departure = sc.next();
+		System.out.print("Arrival: ");
+		String arrival = sc.next();
+		System.out.print("Date (YY/MM/DD): ");
+		String date = sc.next();
+		
+		String query = "SELECT" +
+	    " B.BID AS BUS_ID," +
+	    " B.BCOMPANY AS BUS_COMPANY," +
+	    " B.BTYPE AS BUS_TYPE" +
+	    " FROM ROUTE RO, TIMETABLE T, BUS B" +
+	    " WHERE RO.DSTATION = '" + departure + "'" +
+	    " AND RO.ASTATION = '" + arrival + "'" +
+	    " AND T.TRID = RO.RID" +
+	    " AND T.TDATE = TO_DATE('" + date + "', 'yy/mm/dd')" +
+	    " AND B.BID = T.TBID";
+		
+		try {
+			StringBuffer Buses = new StringBuffer();
+			rs = stmt.executeQuery(query);
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cnt = rsmd.getColumnCount();
+			for (int i =1;i<=cnt;i++){
+				System.out.print(rsmd.getColumnName(i) + "    ");
+			}
+			System.out.print("\n");
+			if (rs.next()){
+				String BusId = rs.getString(1);
+				String Company = rs.getString(2);
+				String Type = rs.getString(3);
+				Buses.append(BusId + "    " + Company + "    " + Type);
+			}
+			System.out.println(!Buses.isEmpty() ? Buses.toString() : "Couldn't find any bus");
+		} catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public static void funct5(Connection conn, Statement stmt) {
