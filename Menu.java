@@ -193,7 +193,7 @@ public class Menu {
 	public static void funct4(Connection conn, Statement stmt) {
 		System.out.print("Input your [Departing Station] (e.g., kwangmyeong): ");
 		String departure = sc.next();
-		System.out.print("Input your [Arriving Station] (e.g., soesan): ");
+		System.out.print("Input your [Arriving Station] (e.g., seosan): ");
 		String arrival = sc.next();
 		System.out.print("Input your travle [Date] (e.g., 22/10/06 - YY/MM/DD): ");
 		String date = sc.next();
@@ -688,7 +688,7 @@ public class Menu {
 				
 				
 				System.out.print(date + "    " + dep_time + "	  	" + arr_time + "	     " + bid + "	     "
-						+ sid + "	 	     " + d_station + "  	           " + d_platform + "	                 " + a_station + "	          10 " + a_platform);
+						+ sid + "	 	     " + d_station + "  	           " + d_platform + "	                 " + a_station + "	            " + a_platform);
 				System.out.println();
 			}
 			System.out.println(!date.isEmpty() ? "" : "Can not find your reservation");
