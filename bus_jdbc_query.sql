@@ -141,17 +141,17 @@ ORDER BY AGE DESC;
 -- 출발지, 도착지, 날짜, 출발 시간
 -- Return : Args에 해당하는 버스의 아직 예약되지 않은 좌석 목록
 -- Seat ID, ROW NO., COL NO.
--- ex. 괴산역->양주역 22년10월4일 15시 34분에 출발하는 버스에
--- F3번만 예약되어 있어서 F3번을 제외한 남은 좌석 출력
+-- ex. 청량리->동해 22년10월7일 05시 15분에 출발하는 버스에서
+-- 예약되지 않는 버스들을 출력
 select * from SEAT
 where sid not in
     (SELECT distinct RE.RSID
     FROM ROUTE RO, TIMETABLE T, BUS B, RESERVATION RE
-    WHERE RO.DSTATION = '괴산역'
-    AND RO.ASTATION = '양주역'
+    WHERE RO.DSTATION = 'chungryangri'
+    AND RO.ASTATION = 'donghae'
     AND T.TRID = RO.RID
-    AND T.TDATE = TO_DATE('22/10/04', 'yy/mm/dd')
-    AND T.DEPART_TIME = TO_DATE('22/10/04 15:34', 'yy/mm/dd HH24:MI')
+    AND T.TDATE = TO_DATE('22/10/07', 'yy/mm/dd')
+    AND T.DEPART_TIME = TO_DATE('22/10/07 05:15', 'yy/mm/dd HH24:MI')
     AND T.TID = RE.RTID)
 order by sid asc;
 
@@ -159,7 +159,7 @@ order by sid asc;
 
 -- 7. 버스 좌석 정보 예매
 select * from reservation where RAID = '692633736';
-insert into reservation values('692633736', 'Z5', 61);
+insert into reservation values('692633736', 'F3', 61);
 select * from reservation where RAID = '692633736';
 rollback;
 
@@ -188,13 +188,12 @@ AND RSID = 'J3'; -- SEAT ID
 
 -- 10. 예약 정보 조회 (티켓 정보 조회)
 -- Args
--- Account ID : '836639795'
+-- Account ID : '246306950'
 -- Return
 -- 날짜(DATES), 출발 시간(DEPART_TIME), 도착 시간(ARRIVE_TIME),
 -- 버스 번호(BUS_ID), 좌석 번호(SEAT),
 -- 출발지(DEPART_STATION), 출발지 플랫폼 번호(DEPART_PLATFORM)
 -- 도착지(ARRIVE_STATION), 도착지 플랫폼 번호(ARRIVE_PLATFORM)
--- 2022/10/04	15:34	16:18	1004	F3	괴산역	14	양주역	11
 -- ex. 로그인되어 있는 Account ID를 통해
 -- 예약 정보 출력
 SELECT
@@ -208,12 +207,12 @@ SELECT
     RO.ASTATION AS ARRIVE_STATION,
     RO.APLATFORM AS ARRIVE_PLATFORM
 FROM RESERVATION RE, TIMETABLE T, ROUTE RO
-WHERE RE.RAID = '836639795'
+WHERE RE.RAID = '246306950'
 AND RE.RTID = T.TID
 AND T.TRID=RO.RID;
 
 -- 11. 예매 상세 정보
-select * from reservation WHERE RAID = '727337984';
+select * from reservation WHERE RAID = '790210786';
 -- Args
 -- Timetable ID
 -- Return
@@ -221,8 +220,7 @@ select * from reservation WHERE RAID = '727337984';
 
 SELECT E.LNAME AS DRIVER_LNAME, E.FNAME AS DRIVER_FNAME, B.BCOMPANY AS BUS_COMPANY
 FROM TIMETABLE T, DRIVES D, BUS B, EMPLOYEE E
-WHERE T.TID = 6
+WHERE T.TID = 137
 AND D.DBID = T.TBID
 AND B.BID = T.TBID
 AND E.SSN = D.DSSN;
-
