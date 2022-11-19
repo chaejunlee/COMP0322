@@ -84,7 +84,9 @@ public class Menu {
 	}
 	
 	public static void funct1(Connection conn, Statement stmt) {
+		System.out.print("Input your [Email] (e.g., james90@example.net): ");
 		String email = sc.next();
+		System.out.print("Input your [Password] (e.g., cwfOlgHhJFZUtX): ");
 		String password = sc.next();
 		
 		String query = "SELECT AID" +
@@ -114,15 +116,11 @@ public class Menu {
 	}
 	
 	public static void funct2(Connection conn, Statement stmt) {
-<<<<<<< HEAD
-		// input your code
-		System.out.println("func2\n\n");
-=======
-		System.out.print("First Name: ");
+		System.out.print("Input your [First Name] (e.g., Greg): ");
 		String Fname = sc.next();
-		System.out.print("Last Name: ");
+		System.out.print("Input your [Last Name] (e.g., Ingram)");
 		String Lname = sc.next();
-		System.out.print("Phone Number (without hyphens): ");
+		System.out.print("Input your [Phone Number] (e.g., 05447234270): ");
 		String phoneNumber = sc.next();
 		
 		String query = "SELECT EMAIL" +
@@ -149,13 +147,12 @@ public class Menu {
 			System.err.println("sql error = " + e.getMessage());
 			e.printStackTrace();
 		}
->>>>>>> 1df9ca86e67a937e3dac854723b5a9be983c5357
 	}
 	
 	public static void funct3(Connection conn, Statement stmt) {
-		System.out.print("Departure: ");
+		System.out.print("Input your [Departing Station] (e.g.,: kangreung): ");
 		String departure = sc.next();
-		System.out.print("Date: ");
+		System.out.print("Input your travel [Date] (e.g., 22/10/06): ");
 		String date = sc.next();
 		
 		String query = "SELECT DISTINCT "
@@ -194,15 +191,11 @@ public class Menu {
 	}
 	
 	public static void funct4(Connection conn, Statement stmt) {
-<<<<<<< HEAD
-		// input your code
-		System.out.println("func4\n\n");
-=======
-		System.out.print("Departure: ");
+		System.out.print("Input your [Departing Station] (e.g., kwangmyeong): ");
 		String departure = sc.next();
-		System.out.print("Arrival: ");
+		System.out.print("Input your [Arriving Station] (e.g., soesan): ");
 		String arrival = sc.next();
-		System.out.print("Date (YY/MM/DD): ");
+		System.out.print("Input your travle [Date] (e.g., 22/10/06 - YY/MM/DD): ");
 		String date = sc.next();
 		
 		String query = "SELECT" +
@@ -237,13 +230,12 @@ public class Menu {
 			System.err.println("sql error = " + e.getMessage());
 			e.printStackTrace();
 		}
->>>>>>> 1df9ca86e67a937e3dac854723b5a9be983c5357
 	}
 	
 	public static void funct5(Connection conn, Statement stmt) {
-		System.out.println("1. Find a default fee of a route with departure and arrival");
-		System.out.println("2. Find a detailed fee of a route with departure and arrival");
-		System.out.println("3. Find a detailed fee of a route with timetable ID");
+		System.out.println("1. Find a default fee of a route with [Departure] and [Arrival]");
+		System.out.println("2. Find a detailed fee of a route with [Departure] and [Arrival]");
+		System.out.println("3. Find a detailed fee of a route with [TimeTable ID]");
 		
 		String mode = sc.next();
 		
@@ -252,9 +244,9 @@ public class Menu {
 		
 		switch (mode) {
 		case "2":
-			System.out.print("Departure: ");
+			System.out.print("Input your [Departing Station] (e.g., kwangmyeong): ");
 			departure = sc.next();
-			System.out.print("Arrival: ");
+			System.out.print("Input your [Arriving Station] (e.g., seosan): ");
 			arrival = sc.next();
 			
 			query = "select BUS_ID, BUS_TYPE, AGE, FEE "
@@ -280,7 +272,7 @@ public class Menu {
 			break;
 			
 		case "3":
-			System.out.print("TID: ");
+			System.out.print("Input your [TimeTable ID] of your travel (e.g., 21): ");
 			Tid = sc.next();
 			query = "SELECT P.AGE, P.BUSTYPE, P.FEE "
 					+ "FROM TIMETABLE T, PRICE P, BUS B "
@@ -292,9 +284,9 @@ public class Menu {
 			break;
 			
 		default: // including 1
-			System.out.print("Departure: ");
+			System.out.print("Input your [Departing Station] (e.g., kwangmyeong): ");
 			departure = sc.next();
-			System.out.print("Arrival: ");
+			System.out.print("Input your [Arriving Station] (e.g., seosan): ");
 			arrival = sc.next();
 			
 			query = "SELECT distinct P.AGE AS AGE, "
@@ -346,16 +338,16 @@ public class Menu {
 		
 		String arr_station, dep_station, dep_date, dep_time, query, sid = "", row = "", col = "";
 		
-		System.out.print("Input departing station(ex: chungryangri): ");
+		System.out.print("Input [Departing Station] (e.g., chungryangri): ");
 		dep_station = sc.next();
 		
-		System.out.print("Input arriving station(ex: donghae): ");
+		System.out.print("Input [Arriving Station] (e.g., donghae): ");
 		arr_station = sc.next();
 		
-		System.out.print("Input departing date(format: 22/10/07): ");
+		System.out.print("Input [Departing Date] (format: 22/10/07): ");
 		dep_date = sc.next();
 		
-		System.out.print("Input departing time(format: 05:15): ");
+		System.out.print("Input [Departing Time] (format: 05:15): ");
 		dep_time = sc.next();
 		
 		query = "SELECT * FROM SEAT" +
@@ -368,7 +360,7 @@ public class Menu {
 				"', 'yy/mm/dd HH24:MI') AND T.TID = RE.RTID)" +
 				" ORDER BY SID ASC";
 			
-		System.out.println("Seat list you can reserve");
+		System.out.println("List of seats you can book:");
 		
 		try {
 			rs = stmt.executeQuery(query);
@@ -389,7 +381,7 @@ public class Menu {
 				System.out.print(sid + "	   " + row + "		   " + col);
 				System.out.println();
 			}
-			System.out.println(!sid.isEmpty() ? "" : "Can not find a bus from " + dep_station + " to " + arr_station + " for that time slot");
+			System.out.println(!sid.isEmpty() ? "" : "Can not find any bus from " + dep_station + " to " + arr_station + " for that time slot");
 			
 		} catch (SQLException e) {
 			System.err.println("sql error = " + e.getMessage());
@@ -401,7 +393,7 @@ public class Menu {
 	public static void funct7(Connection conn, Statement stmt) {
 		String sid, tid, aid, query, row, col;
 		
-		System.out.print("Input your account number(ex: 692633736): ");
+		System.out.print("Input your [Account Number] (e.g., 692633736): ");
 		aid = sc.next();
 		
 		System.out.println(aid + "'s reservation");
@@ -432,10 +424,10 @@ public class Menu {
 		}
 		
 		
-		System.out.print("Input timetable number(ex: 61): ");
+		System.out.print("Input [Timetable Number] (e.g., 61): ");
 		tid = sc.next();
 
-		System.out.print("Input seat number you want to seat(ex: F3): ");
+		System.out.print("Input [Seat Number] you want to book (e.g., F3): ");
 		sid = sc.next();
 		
 		query = "INSERT INTO RESERVATION VALUES('" + aid +
@@ -450,7 +442,7 @@ public class Menu {
 			e.printStackTrace();
 		}
 		
-		System.out.println(aid + "'s reservation after insert");
+		System.out.println(aid + "'s reservation after an insert");
 		query = "SELECT * FROM RESERVATION WHERE RAID = '" + aid + "'";
 		try {
 			rs = stmt.executeQuery(query);
@@ -483,7 +475,7 @@ public class Menu {
 	public static void funct8(Connection conn, Statement stmt) {
 		String sid, tid, aid, query, row, col, sid1, sid2;
 		
-		System.out.print("Input your account number(ex: 547937757): ");
+		System.out.print("Input your [Account Number](e.g., 547937757): ");
 		aid = sc.next();
 		
 		System.out.println(aid + "'s reservation");
@@ -514,13 +506,13 @@ public class Menu {
 		}
 		
 		
-		System.out.print("Input timetable number(ex: 32): ");
+		System.out.print("Input the [Timetable Number] you would like to change (e.g., 32): ");
 		tid = sc.next();
 
-		System.out.print("Input seat number you want to change(ex: J3): ");
+		System.out.print("Input [Seat Number] you would like to [change from] (e.g., J3): ");
 		sid1 = sc.next();
 		
-		System.out.print("Input seat number you want to seat(ex: J4): ");
+		System.out.print("Input [Seat Number] you would like to [chang to] (e.g., J4): ");
 		sid2 = sc.next();
 		
 		query = "UPDATE RESERVATION SET RSID = '" + sid2 +
@@ -541,7 +533,7 @@ public class Menu {
 			e.printStackTrace();
 		}
 		
-		System.out.println(aid + "'s reservation after update");
+		System.out.println(aid + "'s reservation after an update");
 		query = "SELECT * FROM RESERVATION WHERE RAID = '" + aid + "'";
 		try {
 			rs = stmt.executeQuery(query);
@@ -574,7 +566,7 @@ public class Menu {
 	public static void funct9(Connection conn, Statement stmt) {
 		String sid, tid, aid, query, row, col;
 		
-		System.out.print("Input your account number(ex: 547937757): ");
+		System.out.print("Input your [Account Number] (e.g., 547937757): ");
 		aid = sc.next();
 		
 		System.out.println(aid + "'s reservation");
@@ -605,10 +597,10 @@ public class Menu {
 		}
 		
 		
-		System.out.print("Input timetable number(ex: 32): ");
+		System.out.print("Input a [Timetable Number] (e.g., 32): ");
 		tid = sc.next();
 
-		System.out.print("Input seat number you want to delete(ex: J3): ");
+		System.out.print("Input a [Seat Number] you would like to [delete] (e.g., J3): ");
 		sid = sc.next();
 		
 		query = "DELETE FROM RESERVATION WHERE RAID = '" + aid +
@@ -661,7 +653,7 @@ public class Menu {
 	public static void funct10(Connection conn, Statement stmt) {
 		String aid, query, date="", dep_time, arr_time, bid, sid, d_station, d_platform, a_station, a_platform;
 		
-		System.out.print("Input your account number(ex: 246306950): ");
+		System.out.print("Input your [Account Number] (e.g., 246306950): ");
 		aid = sc.next();
 		
 		query = "SELECT TO_CHAR(T.TDATE, 'YYYY/MM/DD') AS DATES," + 
@@ -711,7 +703,7 @@ public class Menu {
 	public static void funct11(Connection conn, Statement stmt) {
 		String tid, dlname = "", dfname, bcompany, query, aid, row, col, sid;
 		
-		System.out.print("Input your account number(ex: 790210786): ");
+		System.out.print("Input your [Account Number] (e.g., 790210786): ");
 		aid = sc.next();
 		
 		System.out.println(aid + "'s reservation");
@@ -741,7 +733,7 @@ public class Menu {
 			e.printStackTrace();
 		}
 		
-		System.out.print("Input tid you want to show details(ex: 137): ");
+		System.out.print("Input a [TimeTable ID] you would like to know the details of (e.g., 137): ");
 		tid = sc.next();
 		
 		query = "SELECT E.LNAME AS DRIVER_LNAME, E.FNAME AS DRIVER_FNAME, B.BCOMPANY AS BUS_COMPANY" +
