@@ -218,7 +218,7 @@ select * from reservation WHERE RAID = '727337984';
 -- Timetable ID
 -- Return
 -- Driver Name, BUS COMPANY
-select * from employee;
+
 SELECT E.LNAME AS DRIVER_LNAME, E.FNAME AS DRIVER_FNAME, B.BCOMPANY AS BUS_COMPANY
 FROM TIMETABLE T, DRIVES D, BUS B, EMPLOYEE E
 WHERE T.TID = 6
