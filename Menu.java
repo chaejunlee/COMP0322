@@ -102,7 +102,7 @@ public class Menu {
 			for (int i =1;i<=cnt;i++){
 				System.out.println(rsmd.getColumnName(i));
 			}
-			if (rs.next()){
+			while (rs.next()){
 				AID = rs.getString(1);
 			}
 			System.out.println(!AID.isEmpty() ? AID : "Login Failed");
@@ -137,7 +137,7 @@ public class Menu {
 			for (int i =1;i<=cnt;i++){
 				System.out.println(rsmd.getColumnName(i));
 			}
-			if (rs.next()){
+			while (rs.next()){
 				Email = rs.getString(1);
 			}
 			System.out.println(!Email.isEmpty() ? Email : "Couldn't find the account");
@@ -218,11 +218,11 @@ public class Menu {
 				System.out.print(rsmd.getColumnName(i) + "    ");
 			}
 			System.out.print("\n");
-			if (rs.next()){
+			while (rs.next()){
 				String BusId = rs.getString(1);
 				String Company = rs.getString(2);
 				String Type = rs.getString(3);
-				Buses.append(BusId + "    " + Company + "    " + Type);
+				Buses.append(BusId + "    " + Company + "    " + Type + "\n");
 			}
 			System.out.println(!Buses.isEmpty() ? Buses.toString() : "Couldn't find any bus");
 		} catch (SQLException e) {
