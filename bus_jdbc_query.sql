@@ -25,6 +25,31 @@ WHERE FNAME = 'Greg'
 AND LNAME = 'Ingram'
 AND PHONE = '05447234270';
 
+-- 3. 가능한 버스 시간 표 출력
+-- Args
+-- 출발역, 날짜
+-- Returns
+-- Timetable ID, 날짜, 출발역, 출발 시간, 도착역, 도착 시간
+-- ex. 해당 날짜(22/10/06)에 출발역(강릉역)에서 출발하는 모든 시간표 출력
+-- 60	22/10/06	강릉역	03:09	옥천역	13:57
+-- 98	22/10/06	강릉역	11:24	용산역	11:20
+-- 170	22/10/06	강릉역	00:31	단양역	10:00
+-- 127	22/10/06	강릉역	12:06	단양역	20:45
+select * from route;
+select * from timetable;
+SELECT DISTINCT
+    T.TID, T.TDATE,
+    RO.DSTATION, TO_CHAR(T.DEPART_TIME, 'HH24:MI') AS DEPART_TIME,
+    RO.ASTATION, TO_CHAR(T.ARRIVE_TIME, 'HH24:MI') AS ARRIVE_TIME
+    --T.TDATE, count(T.TID)
+FROM ROUTE RO, TIMETABLE T
+WHERE RO.DSTATION = '강릉역'
+AND T.TRID = RO.RID
+AND T.TDATE = TO_DATE('22/10/06', 'YY/MM/DD')
+--GROUP BY T.TDATE
+ORDER BY T.TDATE ASC;
+
+
 -- 4. 버스 정보 조회
 -- Args
 -- 출발지, 도착지, 날짜
@@ -133,30 +158,33 @@ order by sid asc;
 
 
 -- 7. 버스 좌석 정보 예매
-insert into reservation values('242103837', 'Z5', 61);
-select * from reservation where RAID = '242103837';
+select * from reservation where RAID = '692633736';
+insert into reservation values('692633736', 'Z5', 61);
+select * from reservation where RAID = '692633736';
 rollback;
 
 -- 8. 예매한 목록 update
-select * from reservation WHERE RAID = '629293299' AND RTID = '199';
+select * from reservation WHERE RAID = '547937757';
 -- Args
 -- Seat ID, Timetable ID, Account ID
--- ex. Account ID가 629293299인 사람의 예약 정보 중
--- Timetable 199번을 예약한 좌석을 Z5로 변경
+-- ex. Account ID가 547937757인 사람의 예약 정보 중
+-- Timetable 32번을 예약한 좌석을 J3에서 J4로 변경
 UPDATE RESERVATION
-SET RSID = 'Z5' -- 바꿀 SEAI ID
+SET RSID = 'J4' -- 바뀐 SEAI ID
 WHERE RAID = '629293299' -- Account ID
-AND RTID = '199'; -- Timetable ID
+AND RTID = '32' -- Timetable ID
+AND RSID = 'J3'; -- 바꿀 SEAI ID
 
-select * from reservation WHERE RAID = '629293299' AND RTID = '199';
+select * from reservation WHERE RAID = '547937757';
 rollback;
 
 -- 9. 예매 내역 삭제
 -- Args
--- Account ID, Timetable ID
+-- Seat ID, Timetable ID, Account ID
 DELETE FROM RESERVATION
-WHERE RAID = '629293299' -- Account ID
-AND RTID = '199'; -- Timetable ID
+WHERE RAID = '547937757' -- Account ID
+AND RTID = '32' -- Timetable ID
+AND RSID = 'J3'; -- SEAT ID
 
 -- 10. 예약 정보 조회 (티켓 정보 조회)
 -- Args
@@ -185,6 +213,7 @@ AND RE.RTID = T.TID
 AND T.TRID=RO.RID;
 
 -- 11. 예매 상세 정보
+select * from reservation WHERE RAID = '727337984';
 -- Args
 -- Timetable ID
 -- Return
