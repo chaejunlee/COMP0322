@@ -149,8 +149,44 @@ public class Menu {
 	}
 	
 	public static void funct3(Connection conn, Statement stmt) {
-		// input your code
-		System.out.println("func3\n\n");
+		System.out.print("Departure: ");
+		String departure = sc.next();
+		System.out.print("Date: ");
+		String date = sc.next();
+		
+		String query = "SELECT DISTINCT "
+				+ "    T.TID, T.TDATE, "
+				+ "    RO.DSTATION, TO_CHAR(T.DEPART_TIME, 'HH24:MI') AS DEPART_TIME, "
+				+ "    RO.ASTATION, TO_CHAR(T.ARRIVE_TIME, 'HH24:MI') AS ARRIVE_TIME "
+				+ "FROM ROUTE RO, TIMETABLE T "
+				+ "WHERE RO.DSTATION = '" + departure + "' "
+				+ "AND T.TRID = RO.RID "
+				+ "AND T.TDATE = TO_DATE('" + date + "', 'YY/MM/DD') "
+				+ "ORDER BY T.TDATE ASC";
+		try {
+			StringBuffer Routes = new StringBuffer();
+			rs = stmt.executeQuery(query);
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cnt = rsmd.getColumnCount();
+			for (int i =1;i<=cnt;i++){
+				System.out.print(rsmd.getColumnName(i) + "    ");
+			}
+			System.out.print("\n");
+			while (rs.next()){
+				String TimeTableID = rs.getString(1);
+				String Date = rs.getString(2);
+				String DepartingStation = rs.getString(3);
+				String DepartingTime = rs.getString(4);
+				String ArrivingStation = rs.getString(5);
+				String ArrivingTime = rs.getString(6);
+				Routes.append(TimeTableID + "    " + Date.substring(0,11) + "    " + DepartingStation + "    " + DepartingTime + "    " + ArrivingStation + "    " + ArrivingTime + "    \n");
+			}
+			System.out.println(!Routes.isEmpty() ? Routes : "Couldn't find any route");
+		} catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public static void funct4(Connection conn, Statement stmt) {
@@ -260,7 +296,7 @@ public class Menu {
 					+ "AND RO.RID = P.PRID "
 					+ "ORDER BY AGE DESC, BUSTYPE DESC";
 		}
-		
+
 		try {
 			StringBuffer Prices = new StringBuffer();
 			rs = stmt.executeQuery(query);
