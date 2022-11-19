@@ -1,16 +1,21 @@
 package Bus;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
 public class Menu {
+	static Scanner sc = new Scanner(System.in);	
+	static ResultSet rs;
+	
 	public static void menu(Connection conn, Statement stmt) {
 		
 		System.out.println("----------------------- KNU BUS SERVICE -----------------------");
 		
 		while(true) {
-			Scanner sc = new Scanner(System.in);	
 			
 			System.out.println("----------------------- MENU -----------------------");
 			System.out.println("<Login stage>");
@@ -78,8 +83,33 @@ public class Menu {
 	}
 	
 	public static void funct1(Connection conn, Statement stmt) {
-		// input your code
-		System.out.println("func1\n\n");
+		String email = sc.next();
+		String password = sc.next();
+		
+		String query = "SELECT AID" +
+		" FROM ACCOUNT" + 
+		" WHERE EMAIL='" + email + "'" + 
+		" AND PW='" + password + "'";
+		
+		try {
+			String AID = "";
+			rs = stmt.executeQuery(query);
+			
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int cnt = rsmd.getColumnCount();
+			for (int i =1;i<=cnt;i++){
+				System.out.println(rsmd.getColumnName(i));
+			}
+			if (rs.next()){
+				AID = rs.getString(1);
+			}
+			System.out.println(!AID.isEmpty() ? AID : "Login Failed");
+			
+		} catch (SQLException e) {
+			System.err.println("sql error = " + e.getMessage());
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static void funct2(Connection conn, Statement stmt) {
