@@ -1,21 +1,153 @@
 - bus_insert.sql
-phase 2에서 한글로 되어있던 것들을 영어로 바꾸고 기능들에 맞게 들어가 있는 데이터를 수정함
+phase 2에서 한글로 되어있던 것들을 영어로 바꾸고 기능들에 맞게 들어가 있는 데이터를 수정했습니다.
 
 - bus_schema.sql
-데이터의 형식에 맞게 schema를 일부 수정함 (한글 -> 영어)
+데이터의 형식에 맞게 schema를 일부 수정했습니다. (한글 -> 영어)
 
-- phase 2에서 bus_query에서 작성한 쿼리를 서비스에 맞게 바꾸어서 java 파일 내 코드로 작성함
-- 아래 기능설명에 query의 구체적인 내용과 query를 기술함
+- phase 2에서 bus_query에서 작성한 쿼리를 서비스에 맞게 바꾸어서 jdbc를 이용한 Java 코드를 작성했습니다.
 
-- bus_schema.sql과 bus_insert.sql을 차례로 실행하고 userid랑 passwd 뭐로 했는지 적으면 될듯
+- 아래 기능 설명에 query의 구체적인 내용과 query를 기술했습니다.
 
+- bus_schema.sql과 bus_insert.sql을 차례로 실행하면 됩니다
 
-
-
+- DB 커넥션을 위한 JDBC의 USER_ID BUS로 설정하였고 USER_PASSWD 는 comp322로 설정하였습니다.
+  - 해당 내용은 `Bus.java`의 8, 9, 10번 줄에서 확인 및 수정 가능합니다.
 
 -- 기능 설명
 기능들을 선택하면 예시가 나오는데 예시와 똑같이 입력하면 기능들이 수행됨
 기능을 가장 잘 보여줄 수 있는 data들을 예시로 둔 것
+
+-- 1. 로그인 / 로그아웃
+-- Args
+-- Email : 'james90@example.net'
+-- PW : 'cwfOlgHhJFZUtX'
+-- Return
+-- AID : 242103837
+SELECT AID
+FROM ACCOUNT
+WHERE EMAIL='james90@example.net'
+AND PW='cwfOlgHhJFZUtX';
+
+-- 2. 아이디(이메일) 찾기
+-- Args
+-- Name : 'Greg', 'Ingram' (First Name, Last Name)
+-- Phone Number : '05447234270' 
+-- Return : 아이디(이메일)
+-- Email : jdavis@example.org
+SELECT EMAIL
+FROM ACCOUNT
+WHERE FNAME = 'Greg'
+AND LNAME = 'Ingram'
+AND PHONE = '05447234270';
+
+-- 3. 가능한 버스 시간 표 출력
+-- Args
+-- 출발역, 날짜
+-- Returns
+-- Timetable ID, 날짜, 출발역, 출발 시간, 도착역, 도착 시간
+-- ex. 해당 날짜(22/10/06)에 출발역(강릉역)에서 출발하는 모든 시간표 출력
+-- 60	22/10/06	강릉역	03:09	옥천역	13:57
+-- 98	22/10/06	강릉역	11:24	용산역	11:20
+-- 170	22/10/06	강릉역	00:31	단양역	10:00
+-- 127	22/10/06	강릉역	12:06	단양역	20:45
+SELECT DISTINCT
+    T.TID, T.TDATE,
+    RO.DSTATION, TO_CHAR(T.DEPART_TIME, 'HH24:MI') AS DEPART_TIME,
+    RO.ASTATION, TO_CHAR(T.ARRIVE_TIME, 'HH24:MI') AS ARRIVE_TIME
+    --T.TDATE, count(T.TID)
+FROM ROUTE RO, TIMETABLE T
+WHERE RO.DSTATION = '강릉역'
+AND T.TRID = RO.RID
+AND T.TDATE = TO_DATE('22/10/06', 'YY/MM/DD')
+--GROUP BY T.TDATE
+ORDER BY T.TDATE ASC;
+
+
+-- 4. 버스 정보 조회
+-- Args
+-- 출발지, 도착지, 날짜
+-- '광명역', '서산역', '22/10/06'
+-- Return : Args에 해당하는 버스의 정보 출력
+-- BUS ID, COMPANY, TYPE
+-- 7437	   가상 고속	   일반
+-- 8966	   턴키 고속	   일반
+-- ex. 22년10월06일 '광명역'에서 출발해서 '서산역'에 도착하는 버스들의 정보 출력
+SELECT
+    B.BID AS BUS_ID,
+    B.BCOMPANY AS BUS_COMPANY,
+    B.BTYPE AS BUS_TYPE
+FROM ROUTE RO, TIMETABLE T, BUS B
+WHERE RO.DSTATION = '광명역' -- var1
+AND RO.ASTATION = '서산역' -- var2
+AND T.TRID = RO.RID
+AND T.TDATE = TO_DATE('22/10/06', 'yy/mm/dd') -- var3
+AND B.BID = T.TBID;
+
+-- 5. 좌석 가격 조회
+-- Args
+-- 출발지, 도착지
+-- Return
+-- Age, Bus Type, Fee
+-- ex. '광명역'에서 '서산역'으로 가는 ROUTE의 요금
+-- (Route가 정해지면 버스 요금은 같음)
+SELECT distinct P.AGE AS AGE,
+    P.BUSTYPE as BUS_TYPE,
+    P.FEE as FEE
+FROM PRICE P, ROUTE RO
+WHERE RO.DSTATION = '광명역' AND RO.ASTATION = '서산역'
+AND RO.RID = P.PRID
+ORDER BY AGE DESC, BUSTYPE DESC;
+
+-- 5-1. 좌석 상세 가격 조회
+-- Args
+-- 출발지, 도착지
+-- Return
+-- BUS ID, BUS TYPE, AGE, FEE
+-- ex. '광명역'에서 '서산역'으로 가는 BUS들의 요금
+-- 해당 버스가 일반인지 우등인지는 이미 정해져 있기 때문에
+-- 해당 버스의 타입의 요금만 출력
+-- 2493번 버스 타입이 일반이기 때문에 광명역->서산역 요금 중 일반인 것만 출력
+-- 5292번 버스 타입이 우등이기 때문에 광명역->서산역 요금 중 우등인 것만 출력
+-- 2493   	일반 	청소년	5400
+-- 2493  	일반 	어린이	3100
+-- 2493  	일반 	성인	    6200
+-- 5292 	우등 	청소년	7600
+-- 5292 	우등 	어린이	5500
+-- 5292 	우등 	성인	    8400
+select BUS_ID, BUS_TYPE, AGE, FEE
+from 
+(SELECT
+    B.BID AS BUS_ID,
+    B.BCOMPANY AS BUS_COMPANY,
+    B.BTYPE AS BUS_TYPE
+FROM ROUTE RO, TIMETABLE T, BUS B
+WHERE RO.DSTATION = '광명역' AND RO.ASTATION = '서산역'
+AND T.TRID = RO.RID
+AND B.BID = T.TBID)
+left join 
+(SELECT distinct P.AGE AS AGE,
+    P.BUSTYPE as BUS_TYPE2,
+    P.FEE as FEE
+FROM PRICE P, ROUTE RO
+WHERE RO.DSTATION = '광명역' AND RO.ASTATION = '서산역'
+AND RO.RID = P.PRID
+ORDER BY AGE DESC, BUSTYPE DESC)
+ON (BUS_TYPE = BUS_TYPE2)
+ORDER BY BUS_ID ASC, AGE DESC;
+
+-- 5-2. 좌석 상세 가격 조회
+-- Args
+-- Timetable ID (21)
+-- Return
+-- 요금 정보
+-- ex. Timetable ID를 알면 Route (TRID), BUS (TBID)를 알기 때문에 요금 정보 조회 가능
+SELECT P.AGE, P.BUSTYPE, P.FEE
+FROM TIMETABLE T, PRICE P, BUS B
+WHERE T.TID = 21
+AND T.TBID = B.BID
+AND T.TRID = P.PRID
+AND B.BTYPE = P.BUSTYPE
+ORDER BY AGE DESC;
 
 -- 6. 버스 좌석 정보 조회 (예약 안 된 좌석)
 -- Args
@@ -35,8 +167,6 @@ where sid not in
     AND T.DEPART_TIME = TO_DATE('22/10/07 05:15', 'yy/mm/dd HH24:MI')
     AND T.TID = RE.RTID)
 order by sid asc;
-
-
 
 -- 7. 버스 좌석 정보 예매
 select * from reservation where RAID = '692633736';
