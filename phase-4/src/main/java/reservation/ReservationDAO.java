@@ -12,7 +12,6 @@ public class ReservationDAO {
 	private ResultSet rs = null;
 	private Statement stmt = null;
 	private String sql;
-	private String aid;
 
 	public ReservationDAO() {
 		try {
@@ -56,4 +55,6 @@ public class ReservationDAO {
 		}
 			return list;
 		}
+	
+
 }
