@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
+<link rel="stylesheet" href="style.css" />
 <title>main.jsp</title>
 </head>
 <body>
@@ -32,34 +33,53 @@
 	%>
 		</ul>
 	</div>
-	<div>
-		<form method="post" action="./BUS.jsp">
-		<p>
-			Departure:
-			<select id="dstation" name="dstation">
-				<option id="0" value="dongdaegu">Dongdaegu</option>
-				<option id="1" value="busan">Busan</option>
-				<option id="2" value="gapyeong">Gapyeong</option>
-			</select>
+	<h1>Book Your Trip!</h1>
+	<form method="post" action="./BUS.jsp">
+		<div>
+	        <label style="display: block" for="dstation">Departure</label>
+	        <select name="dstation" id="dstation">
+	          <option value="dongdaegu">Dongdaegu</option>
+	          <option value="seosan">Seosan</option>
+	          <option value="seoul">Seoul</option>
+	          <option value="daegu">Daegu</option>
+	          <option value="busan">Busan</option>
+	        </select>
+        </div>
+	
+		<div>
+	        <label style="display: block" for="astation">Arrival</label>
+	        <select name="astation" id="astation">
+	          <option value="gapyeong">Gapyeong</option>
+	          <option value="kwangmyeong">Kwangmyeong</option>
+	          <option value="seoul">Seoul</option>
+	          <option value="daegu">Daegu</option>
+	          <option value="busan">Busan</option>
+	        </select>
+        </div>
 		
-			Arrival:
-			<select id="astation" name="astation">
-				<option id="0" value="dongdaegu">Dongdaegu</option>
-				<option id="1" value="busan">Busan</option>
-				<option id="2" value="gapyeong">Gapyeong</option>
-			</select>
-			
-			Date: 
-			<input type="text" id="ddate" name="ddate" placeholder="22/12/24">
-			
-			Time: 
-			<input type="text" id="time" name="time" placeholder="15:30">
-		</p>
-				
-		<input type="reset" value="Reset">
-		<input type="submit" value="Submit">
+		<div>
+	        <label for="ddate">Date</label>
+	        <input name="ddate" id="ddate" type="date" />
+	      </div>
+		
+		<div>
+	       <label for="time">Time</label>
+	       <input name="time" id="time" type="time" />
+	     </div>
+		
+		<input style="margin-top: 0.5em;" class="btn blank" type="reset" value="Reset">
+		<input style="margin-top: 0.5em;" class="btn" type="submit" value="Submit">
 	</form>
-	</div>
+
 	
 </body>
+<script>
+    const dateInput = document.getElementById("ddate");
+    const timeInput = document.getElementById("time");
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    now.setSeconds(null, 0);
+    dateInput.valueAsDate = now;
+    timeInput.valueAsDate = now;
+ </script>
 </html>
