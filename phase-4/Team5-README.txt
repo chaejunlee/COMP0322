@@ -10,10 +10,10 @@ bus_insert.sql에서 수정
 - QUERY EXAMPLE
     - 동대구에서 가평으로 가는 버스의 12월 25일 10시 30분에 출발하는 버스의 남은 좌석 출력
     (아래 예시는 17석 출력)
-    select * from SEAT
+        select * from SEAT
     where sid not in
         (SELECT distinct RE.RSID
-        FROM ROUTE RO, TIMETABLE T, BUS B, RESERVATION RE
+        FROM ROUTE RO, TIMETABLE T, RESERVATION RE
         WHERE RO.DSTATION = 'dongdaegu'
         AND RO.ASTATION = 'gapyeong'
         AND T.TRID = RO.RID
