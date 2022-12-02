@@ -29,25 +29,24 @@
 		ReservationDAO reserveDAO = new ReservationDAO();
 		int result = reserveDAO.completeReserve(reservation, userAID, tid, sid, price);
 		
-		// 이거 밑에부터 result 값에 따라 분기해야하느 ㄴ코드 작성
 		if(result == -1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('서버 오류입니다.')");
+			script.println("alert('server error')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if(result == 0){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('잔액이 부족합니다.')");
+			script.println("alert('no money.')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
 		else if(result == 1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('예약되었습니다.')");
+			script.println("alert('success')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}		

@@ -71,7 +71,7 @@ public class ReserveInfoDAO {
 				for(int i = 0; i < sidList.length; i++) {
 					str += sidList[i];
 					if(i != (sidList.length -1)) {
-						str += ", ";
+						str += ",";
 					}
 				}
 				

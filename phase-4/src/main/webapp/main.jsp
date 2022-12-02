@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.UserDAO" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:setProperty name="user" property="userAid" />
+<jsp:setProperty name="user" property="userEmail" />
+<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userFname" />
+<jsp:setProperty name="user" property="userLname" />
+<jsp:setProperty name="user" property="userPhone" />
+<jsp:setProperty name="user" property="userPoint" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +24,10 @@
 		if(session.getAttribute("userAid") != null){
 			userAID = (String) session.getAttribute("userAid");
 		}
+		
+		UserDAO userDAO = new UserDAO();
+		int point = userDAO.getPoint(userAID);
+		
 	%>
 	<div>
 		<ul>
@@ -27,6 +41,7 @@
 	<%
 		} else{
 	%>
+		<li>my point: <%= point %></li>
 		<li><a href="myReservation.jsp">myReservation</a>
 		<li><a href="logoutAction.jsp">logout</a>
 	<%
@@ -57,7 +72,6 @@
 	          <option value="busan">Busan</option>
 	        </select>
         </div>
-		
 		<div>
 	        <label for="ddate">Date</label>
 	        <input name="ddate" id="ddate" type="date" />
@@ -71,7 +85,6 @@
 		<input style="margin-top: 0.5em;" class="btn blank" type="reset" value="Reset">
 		<input style="margin-top: 0.5em;" class="btn" type="submit" value="Submit">
 	</form>
-
 	
 </body>
 <script>
