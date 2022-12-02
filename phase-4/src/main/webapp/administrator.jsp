@@ -5,7 +5,6 @@
 
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="administrator.AdministratorDAO" %>
 <%@ page import="bus.Bus" %>
 
 <%@ page import ="java.sql.Connection"%>
