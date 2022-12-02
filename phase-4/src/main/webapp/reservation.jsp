@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="reservation.ReservationDAO" %>
 <%@ page import="reservation.Reservation" %>
@@ -15,33 +15,10 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="style.css" />
-<title>reservation</title>
+<title>Reservation :: UNI-BUS</title>
 </head>
 <body>
-	<%
-		String userAID = null;
-		if(session.getAttribute("userAid") != null){
-			userAID = (String) session.getAttribute("userAid");
-		}
-	%>
-	<div>
-		<ul>
-			<li><a href="main.jsp">main page</a>
-	<%
-		if(userAID == null){
-	%>
-			<li><a href="login.jsp">login</a>
-			<li><a href="signup.jsp">sign up</a>
-	<%
-		} else{
-	%>
-		<li><a href="myReservation.jsp">myReservation</a>
-		<li><a href="logoutAction.jsp">logout</a>
-	<%
-		}
-	%>
-		</ul>
-	</div>
+    <jsp:include page="header.jsp" />
 	<%
 		String rtid = request.getParameter("rtid");
 		String depart = request.getParameter("depart");
@@ -53,19 +30,22 @@
 	<form method="get" action="reservationAction.jsp">
 		<div class="row-span grid-3">
 			<div>
-				<label for="child">Children <span class="label-sm">(Under age 9)</span></label>
-				
-				<input type="number" min="0" id = "child" name = "child" value="0">
+				<label for="adult">Adult <span class="label-sm">(Over age 18)</span></label>
+				<input type="number" min="0"  id = "adult" name = "adult" value="0">
 			</div>
 			<div>
 				<label for="teenage">Teenager <span class="label-sm">(Between age 10 ~ 18)</span></label>
 				<input type="number" min="0"  id = "teenager" name = "teenager" value="0">
 			</div>
 			<div>
-				<label for="adult">Adult <span class="label-sm">(Over age 18)</span></label>
-				<input type="number" min="0"  id = "adult" name = "adult" value="0">
+				<label for="child">Children <span class="label-sm">(Under age 9)</span></label>
+				
+				<input type="number" min="0" id = "child" name = "child" value="0">
 			</div>
+			
+			
 		</div>
+	
 		<div class="bus-grid row-span">
 		<%
 			ReservationDAO reserveDAO = new ReservationDAO();
@@ -83,7 +63,7 @@
 		
 			for(int i = 0; i < list.size(); i++){
 				String seats = list.get(i).getRsid();
-				/* out.println(seats); */
+				// out.println(seats);
 				if (seats.contains("A")) {
 					arr[seats.charAt(1) - '1'][0] = true;
 				} else if (seats.contains("B")) {
@@ -133,6 +113,7 @@
 			}
 		%>
 		</div>
+		
 		<input type="hidden" id="tid" name="tid" value=<%= rtid %>>
 		<input type="hidden" id="depart" name="depart" value=<%= depart %>>
 		<input type="hidden" id="arrive" name="arrive" value=<%= arrive %>>

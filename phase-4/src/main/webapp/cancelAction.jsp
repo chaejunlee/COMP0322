@@ -11,9 +11,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>cancel reservation</title>
+<title>Cancel Reservation :: UNI-BUS</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
+	
 	<%
 		String sid = request.getParameter("sid");
 		String tid = request.getParameter("tid");	

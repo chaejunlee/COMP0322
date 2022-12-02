@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="reservation.ReserveInfoDAO" %>
 <%@ page import="reservation.ReservationInfo" %>
@@ -16,18 +16,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login action page</title>
+<link rel="stylesheet" href="style.css" />
+<title>Reservation :: UNI-BUS</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<%
 		String userAID = null;
 		if(session.getAttribute("userAid") != null){
 			userAID = (String) session.getAttribute("userAid");
 		}
+		
 		if(userAID == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그인 후 이용해주세요')");
+			script.println("alert('Please Sign In First!')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
@@ -39,25 +42,45 @@
 		ReservationInfo info = reserveDAO.getReserve(reserveinfo, rsid, age);
 	%>
 
-	<p>예약정보></p>
-	<table border="1">
-		<tr>
-			<th>date</th>
-			<th>depart time</th>
-			<th>depart station</th>
-			<th>arrive station</th>
-			<th>seat number</th>
-			<th>price</th>
-		</tr>
-		<tr>
-			<td><%= info.getDdate() %></td>
-			<td><%= info.getDtime() %></td>
-			<td><%= info.getDepart() %></td>
-			<td><%= info.getArrive() %></td>
-			<td><%= info.getSid() %></td>
-			<td><%= info.getPrice() %></td>
-		<tr>
-	</table>
-	<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" value="reserve">reserve</a>
+	<h1 class="px-1">Reservation Details</h1>
+	<main>
+	<div class="grid-3 px-1 py-1">
+		
+		<div>
+			<h3>date</h3>
+			<div class="emphasize"><%= info.getDdate() %></div>
+		</div>
+		
+		<div>
+			<h3>depart time</h3>
+			<div class="emphasize"><%= info.getDtime() %></div>
+		</div>
+		
+		<div>
+			<h3>depart station</h3>
+			<div class="emphasize"><%= info.getDepart() %></div>
+		</div>
+		
+		<div>
+			<h3>arrive station</h3>
+			<div class="emphasize"><%= info.getArrive() %></div>
+		</div>
+		
+		<div>
+			<h3>seat number</h3>
+			<div class="emphasize"><%= info.getSid() %></div>
+		</div>
+		
+		<div>
+			<h3>price</h3>
+			<div class="emphasize"><%= info.getPrice() %></div>
+		</div>
+		
+	</div>
+	<div class="grid-3 px-1">
+		<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" style="margin-top: 1rem;" class="row-span btn" value="reserve">Reserve</a>
+	</div>
+	</main>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

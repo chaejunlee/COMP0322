@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="businfo.BusDAO" %>
 <%@ page import="businfo.Businfo" %>
@@ -19,35 +20,16 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="style.css" />
-	<title>Routes</title>
+	<title>Timetables :: UNI-BUS</title>
 </head>
 	<body>
-		<%
-			String userAID = null;
-			if(session.getAttribute("userAid") != null){
-				userAID = (String) session.getAttribute("userAid");
-			}
-		%>
-		<div>
-			<ul>
-				<li><a href="main.jsp">main page</a>
-		<%
-			if(userAID == null){
-		%>
-				<li><a href="login.jsp">login</a>
-				<li><a href="signup.jsp">sign up</a>
-		<%
-			} else{
-		%>
-			<li><a href="myReservation.jsp">myReservation</a>
-			<li><a href="logoutAction.jsp">logout</a>
-		<%
-			}
-		%>
-			</ul>
-		</div>
-		<h1>Timetable of <span style="display: flex;"><% out.println(businfo.getDdate()); %></span></h1>
-		<div class="title">
+		<jsp:include page="header.jsp" />
+		<h1 class="px-1" style="transform: translateY(-16px);">
+			<span style="font-size: 0.5em;">Timetable of</span>
+			<span style="display: flex;"><% out.println(businfo.getDdate()); %></span>
+		</h1>
+		<main>
+		<div class="title px-1">
 			<span class="place depart"><% out.println(businfo.getDstation()); %></span>
 			<svg
 			  xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +47,7 @@
 			</svg>
 			<span class="place arrival"><% out.println(businfo.getAstation()); %></span>
 		</div>
-		<div class="grid-3">
+		<div class="grid-3 px-1">
 			<div class="head">Details</div>
 			<div class="head">Time</div>
 			<div class="head">Book</div>
@@ -75,13 +57,15 @@
 				ArrayList<Businfo> list = busDAO.getList(businfo);
 				for(int i = 0; i < list.size(); i++){
 			%>
-			<div class="item"><a href='busdetails.jsp?tid=<%= list.get(i).getTid() %>'>Bus Details</a></div>
+			<div class="item"><a class="btn-sm blank" href='busdetails.jsp?tid=<%= list.get(i).getTid() %>'>Bus Details</a></div>
 			<div class="item date"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
-			<div class="item"><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
+			<div class="item"><a class="btn-sm" href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
 			&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>Ticket</a></div>
 			<%
 				}
 			%>
 		</div>  
+		</main>
+		<jsp:include page="footer.jsp" />
 	</body>
 </html>

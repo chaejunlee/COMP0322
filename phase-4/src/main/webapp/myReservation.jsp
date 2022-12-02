@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="reservation.MyTicket" %>
@@ -11,23 +10,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>myReservation</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="style.css" />
+<title>My Reservation :: UNI-BUS</title>
 </head>
 <body>
-	<table border="1">
-		<tr>
-			<th>Date</th>
-			<th>Depart Time</th>
-			<th>Arrive Time</th>
-			<th>Depart station</th>
-			<th>Depart Platform</th>
-			<th>Arrive station</th>
-			<th>Arrive Platform</th>
-			<th>Bus ID</th>
-			<th>Seat ID</th>
-			<th>Age</th>
-			<th>Cancel</th>
-		</tr>
+<jsp:include page="header.jsp" />
+<h1 class="px-1">My Reservations</h1>
+<main class="px-1">
 	<%
 		String userAID = null;
 		if(session.getAttribute("userAid") != null){
@@ -40,22 +30,61 @@
 		
 		for(int i = 0; i < reserveList.size(); i++){
 	%>
-		<tr>
-			<td><%= reserveList.get(i).getDdate().substring(0, 10) %></td>
-			<td><%= reserveList.get(i).getDtime().substring(11, 16) %></td>
-			<td><%= reserveList.get(i).getAtime().substring(11, 16) %></td>
-			<td><%= reserveList.get(i).getDstation() %></td>
-			<td><%= reserveList.get(i).getDplatform() %></td>
-			<td><%= reserveList.get(i).getAstation() %></td>
-			<td><%= reserveList.get(i).getAplatform() %></td>
-			<td><%= reserveList.get(i).getBid() %></td>
-			<td><%= reserveList.get(i).getSid() %></td>
-			<td><%= reserveList.get(i).getAge() %></td>
-			<td><a href="cancelAction.jsp?sid=<%= reserveList.get(i).getSid() %>&tid=<%= reserveList.get(i).getTid() %>&aid=<%= userAID %>">√Îº“«œ±‚</a></td>
-		</tr>
+		<div class="flex border" style="margin-top: 1.5rem;">
+			<h2 class="bg-primary px-1 py-05"> üöê Trip on <%= reserveList.get(i).getDdate().substring(0, 10) %></h2>
+			
+			<div class="grid-3 px-1">
+				<div>
+					<h3>Bus ID</h3>
+					<p class="emphasize"><%= reserveList.get(i).getBid() %></p>
+				</div>
+				<div>
+					<h3>Seat ID</h3>
+					<p class="emphasize"><%= reserveList.get(i).getSid() %></p>
+				</div>
+				<div>
+					<h3>Reserved Age</h3>
+					<p class="emphasize"><%= reserveList.get(i).getAge() %></p>
+				</div>
+			</div>
+			
+			<div class="grid-3 px-1">
+				<div>
+					<h3>Departing Time</h3>
+					<p class="emphasize"><%= reserveList.get(i).getDtime().substring(11, 16) %></p>
+				</div>
+				<div>
+					<h3>Departing Station</h3>
+					<p class="emphasize"><%= reserveList.get(i).getDstation() %></p>
+				</div>
+				<div>
+					<h3>Departing Platform</h3>
+					<p class="emphasize">No. <%= reserveList.get(i).getDplatform() %></p>
+				</div>
+			</div>
+			
+			<div class="grid-3 px-1">
+				<div>
+					<h3>Arriving Time</h3>
+					<p class="emphasize"><%= reserveList.get(i).getAtime().substring(11, 16) %></p>
+				</div>
+				<div>
+					<h3>Arriving Station</h3>
+					<p class="emphasize"><%= reserveList.get(i).getAstation() %></p>
+				</div>
+				<div>
+					<h3>Arriving Platform</h3>
+					<p class="emphasize">No. <%= reserveList.get(i).getAplatform() %></p>
+				</div>
+			</div>
+			
+			<div style="display: flex; justify-content: flex-end;" class="px-1 py-1"><a class="btn-sm" href="cancelAction.jsp?sid=<%= reserveList.get(i).getSid() %>&tid=<%= reserveList.get(i).getTid() %>&aid=<%= userAID %>">Cancel Reservation</a></div>
+		</div>
 	<%
 		}	
 	%>
-	</table>
+	</div>
+</main>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

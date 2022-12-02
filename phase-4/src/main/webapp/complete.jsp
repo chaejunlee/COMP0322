@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="reservation.ReservationDAO" %>
 <%@ page import="reservation.Reservation" %>
@@ -9,13 +8,11 @@
 <jsp:useBean id="reservation" class="reservation.Reservation" scope="page" />
 <jsp:setProperty name="reservation" property="rsid" />
 <jsp:setProperty name="reservation" property="rtid" />
-<jsp:setProperty name="reservation" property="rtid" />
-<jsp:setProperty name="reservation" property="rage" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>complete</title>
+<title>Complete Reservation</title>
 </head>
 <body>
 	<%

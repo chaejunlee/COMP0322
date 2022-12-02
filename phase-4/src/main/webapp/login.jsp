@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>Sign In :: UNI-BUS</title>
 </head>
 <body>
 	<form method="post" action="loginAction.jsp">

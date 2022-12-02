@@ -22,8 +22,8 @@ ResultSet rs = null;
 String serverIP = "localhost";
 String strSID = "xe";
 String portNum = "1600";
-String user = "BUS_25";
-String pass = "qwe123";
+String user = "knubus";
+String pass = "knubus";
 String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
 String sql = null;
 
@@ -53,7 +53,7 @@ if (tbid != "")
 if (trid != "")
 	sql += "AND trid = '" + trid + "' ";
 
-System.out.println(sql);
+// System.out.println(sql);
 pstmt = conn.prepareStatement(sql);
 rs = pstmt.executeQuery();
 %>
