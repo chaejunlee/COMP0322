@@ -6,20 +6,31 @@
   box-sizing: border-box;
   margin: 0;
 
-  --primary-50: #fafafa;
-  --primary-100: #f5f5f5;
-  --primary-200: #e5e5e5;
-  --primary-300: #d4d4d8;
-  --primary-400: #a3a3a3;
-  --primary-500: #78716c;
-  --primary-600: #525252;
-  --primary-700: #404040;
-  --primary-800: #262626;
-  --primary-900: #171717;
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d8;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #78716c;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
+
+  --primary-50: #eef2ff;
+  --primary-100: #e0e7ff;
+  --primary-200: #c7d2fe;
+  --primary-300: #a5b4fc;
+  --primary-400: #818cf8;
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #4338ca;
+  --primary-900: #312e81;
 }
 
 html {
-  --primary-color: 0;
+  --neutral-color: 0;
   height: 100vmin;
   /* display: grid;
 	place-items: center; */
@@ -28,8 +39,8 @@ html {
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
-  color: var(--primary-900);
-  background-color: var(--primary-50);
+  color: var(--neutral-900);
+  background-color: var(--neutral-50);
 
   width: 100%;
   height: 100vmin;
@@ -42,6 +53,13 @@ h1 {
   line-height: 1.2;
   padding-block: 1rem;
   margin-inline: 1rem;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 500;
+
+  text-transform: uppercase;
 }
 
 form {
@@ -72,11 +90,11 @@ form :is(select, input) {
   padding-inline: 0.5rem;
   padding-block: 0.75rem;
 
-  border: 3px solid var(--primary-700);
+  border: 3px solid var(--neutral-700);
   border-radius: 0.5rem;
 
   width: 100%;
-  background-color: var(--primary-100);
+  background-color: var(--neutral-100);
 
   font-size: 2em;
   font-family: monospace;
@@ -84,6 +102,8 @@ form :is(select, input) {
 
 .row-span {
   grid-column: 1 / -1;
+
+  gap: 1rem;
 }
 
 .btn {
@@ -91,33 +111,35 @@ form :is(select, input) {
   padding-inline: 1rem;
   padding-block: 1rem;
 
-  border: 3px solid var(--primary-800);
+  border: 3px solid var(--primary-600);
   border-radius: 0.5rem;
 
   /* width: 100%; */
-  background-color: var(--primary-500);
+  background-color: var(--primary-600);
   font-size: 1.5em;
   color: white;
   font-weight: 800;
   font-family: sans-serif;
+  text-decoration: none;
+  text-align: center;
 
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
 .blank {
-  background-color: var(--primary-50);
-  color: var(--primary-900);
+  background-color: var(--neutral-50) !important;
+  color: var(--primary-900) !important;
 }
 
 .book-btn {
   padding-block: 0.5rem;
   padding-inline: 1rem;
 
-  border: 3px solid var(--primary-700);
+  border: 3px solid var(--neutral-600);
   border-radius: 0.5rem;
 
-  background-color: var(--primary-500);
+  background-color: var(--neutral-600);
   color: white;
   font-size: 1em;
 
@@ -128,13 +150,13 @@ form :is(select, input) {
 .item > a {
   padding-inline: 1rem;
   padding-block: 0.5rem;
-  background-color: var(--primary-500);
+  background-color: var(--primary-600);
 
-  border: 3px solid var(--primary-800);
+  border: 3px solid var(--primary-600);
   border-radius: 0.5rem;
 
   text-decoration: none;
-  color: var(--primary-100);
+  color: var(--neutral-100);
 
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -142,10 +164,12 @@ form :is(select, input) {
 
 :is(.btn:hover, .book-btn:hover, .item > a:hover) {
   background-color: var(--primary-700);
+  border: 3px solid var(--primary-700);
 }
 
 .blank:hover {
-  background-color: var(--primary-400);
+  background-color: var(--neutral-400);
+  color: var(--neutral-50);
 }
 
 .title {
@@ -168,10 +192,20 @@ form :is(select, input) {
   border: 3px solid var(--primary-700);
   border-radius: 0.5rem;
 
-  font-family: monospace;
+  background-color: var(--primary-50);
+
+  /*font-family: monospace;*/
   text-transform: capitalize;
   font-size: 2rem;
   font-weight: bold;
+  color: var(--primary-900);
+}
+
+.emphasize {
+  font-size: 3rem;
+  text-transform: capitalize;
+
+  font-weight: 800;
 }
 
 .grid-3 {
@@ -179,15 +213,13 @@ form :is(select, input) {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   justify-content: center;
 
-  gap: 1rem;
-
   margin-top: 1rem;
 }
 
 .grid-3 .head {
   font-weight: 900;
-  border-bottom: 3px solid var(--primary-500);
-  background-color: var(--primary-300);
+  border-bottom: 3px solid var(--primary-400);
+  background-color: var(--primary-200);
   text-align: center;
 }
 
@@ -207,19 +239,56 @@ form :is(select, input) {
 .grid-3
   :is(.item:nth-child(6n + 1), .item:nth-child(6n + 2), .item:nth-child(6n
       + 3)) {
-  background-color: var(--primary-200);
+  background-color: var(--primary-50);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  margin-top: 1rem;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 1.5rem;
+}
+
+.p-1 {
+  padding: 1rem;
 }
 
 .bus-grid {
   display: grid;
   grid-template-columns: repeat(11, minmax(0, 1fr));
   gap: 1rem;
+
+  margin-block: 2rem;
+  padding: 1rem;
+
+  border-radius: 0.5rem;
+
+  background-color: var(--neutral-200);
 }
 
 .bus-grid :is(.head, .item) {
   display: grid;
   place-items: center;
   margin: 0;
+}
+
+.bus-grid input + *::before {
+  content: "";
+  /* border: 3px solid var(--neutral-900);
+	border-radius: 0.5rem; */
 }
 
 .seat {
@@ -257,11 +326,11 @@ div .item.date {
     padding-inline: 0.5rem;
     padding-block: 0.75rem;
 
-    border: 3px solid var(--primary-700);
+    border: 3px solid var(--neutral-700);
     border-radius: 0.5rem;
 
     width: 100%;
-    background-color: var(--primary-100);
+    background-color: var(--neutral-100);
 
     font-size: 2em;
     font-family: monospace;
