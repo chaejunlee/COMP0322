@@ -75,7 +75,7 @@
 				ArrayList<Businfo> list = busDAO.getList(businfo);
 				for(int i = 0; i < list.size(); i++){
 			%>
-			<div class="item"><a href='busdetails.jsp'>Bus Details</a></div>
+			<div class="item"><a href='busdetails.jsp?tid=<%= list.get(i).getTid() %>'>Bus Details</a></div>
 			<div class="item date"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
 			<div class="item"><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
 			&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>Ticket</a></div>

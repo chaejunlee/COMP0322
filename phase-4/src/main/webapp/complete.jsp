@@ -29,7 +29,6 @@
 		ReservationDAO reserveDAO = new ReservationDAO();
 		int result = reserveDAO.completeReserve(reservation, userAID, tid, sid, price);
 		
-	
 		if(result == -1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
