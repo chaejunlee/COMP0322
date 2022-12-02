@@ -17,6 +17,7 @@
 	<div>
 		<ul>
 			<li><a href="main.jsp">main page</a>
+			<li><a href="administrator.jsp">Administrator</a>
 	<%
 		if(userAID == null){
 	%>
