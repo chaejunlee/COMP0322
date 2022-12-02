@@ -1,16 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page language="java" import="java.text.*, java.sql.*" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="reservation.MyTicket" %>
+<%@ page import="reservation.ReservationDAO" %>
+<jsp:useBean id="reservation" class="reservation.MyTicket" scope="page" />
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>My reservation</title>
+<title>myReservation</title>
 </head>
 <body>
+	<table border="1">
+		<tr>
+			<th>Date</th>
+			<th>Depart Time</th>
+			<th>Arrive Time</th>
+			<th>Depart station</th>
+			<th>Depart Platform</th>
+			<th>Arrive station</th>
+			<th>Arrive Platform</th>
+			<th>Bus ID</th>
+			<th>Seat ID</th>
+			<th>Age</th>
+			<th>Cancel</th>
+		</tr>
 	<%
-		//내 예약정보(날짜, 시간, 출발역, 도착역, 출발 플랫폼, 도착 플랫폼, 버스번호, 자리번호) 보여주고 옆에 삭제버튼
-		//삭제하면 point 환불해줘야함
+		String userAID = null;
+		if(session.getAttribute("userAid") != null){
+			userAID = (String) session.getAttribute("userAid");
+		}
+		
+		ArrayList <MyTicket> reserveList;
+		ReservationDAO ticketDAO = new ReservationDAO();
+		reserveList = ticketDAO.getReservation(userAID);
+		
+		for(int i = 0; i < reserveList.size(); i++){
 	%>
-	
+		<tr>
+			<td><%= reserveList.get(i).getDdate().substring(0, 10) %></td>
+			<td><%= reserveList.get(i).getDtime().substring(11, 16) %></td>
+			<td><%= reserveList.get(i).getAtime().substring(11, 16) %></td>
+			<td><%= reserveList.get(i).getDstation() %></td>
+			<td><%= reserveList.get(i).getDplatform() %></td>
+			<td><%= reserveList.get(i).getAstation() %></td>
+			<td><%= reserveList.get(i).getAplatform() %></td>
+			<td><%= reserveList.get(i).getBid() %></td>
+			<td><%= reserveList.get(i).getSid() %></td>
+			<td><%= reserveList.get(i).getAge() %></td>
+			<td><a href="cancelAction.jsp?sid=<%= reserveList.get(i).getSid() %>&tid=<%= reserveList.get(i).getTid() %>&aid=<%= userAID %>">취소하기</a></td>
+		</tr>
+	<%
+		}	
+	%>
+	</table>
 </body>
 </html>

@@ -12,10 +12,6 @@
 <jsp:setProperty name="reserveinfo" property="sid" />
 <jsp:setProperty name="reserveinfo" property="ddate" />
 <jsp:setProperty name="reserveinfo" property="dtime" />
-<jsp:setProperty name="reserveinfo" property="child" />
-<jsp:setProperty name="reserveinfo" property="teenager" />
-<jsp:setProperty name="reserveinfo" property="adult" />
-<jsp:setProperty name="reserveinfo" property="price" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +32,11 @@
 			script.println("</script>");
 		}
 		
-		String[] rsid = request.getParameterValues("sid");		
+		String[] rsid = request.getParameterValues("sid");
+		String age = request.getParameter("child") + request.getParameter("teenager") + request.getParameter("adult");
 		
 		ReserveInfoDAO reserveDAO = new ReserveInfoDAO();
-		ReservationInfo info = reserveDAO.getReserve(reserveinfo, rsid);
+		ReservationInfo info = reserveDAO.getReserve(reserveinfo, rsid, age);
 	%>
 
 	<p>예약정보></p>
@@ -61,6 +58,6 @@
 			<td><%= info.getPrice() %></td>
 		<tr>
 	</table>
-	<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>" value="reserve">reserve</a>
+	<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" value="reserve">reserve</a>
 </body>
 </html>
