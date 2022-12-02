@@ -56,5 +56,55 @@ public class ReservationDAO {
 			return list;
 		}
 	
+	public int completeReserve(Reservation reservation, String userAID, String tid, String sid, int fee) {
+		
+		int price = 0;
+		sql = "SELECT POINT FROM ACCOUNT WHERE AID = '" + userAID + "'";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);			
+			while(rs.next()) {
+				price = rs.getInt(1) - fee;
+				if(price < 0) {
+					return 0;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		sql = "UPDATE ACCOUNT SET POINT = " + price + " WHERE AID = '" + userAID + "'"; 
+		try {
+			stmt = conn.createStatement();
+			int count = stmt.executeUpdate(sql);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		sql = "INSERT INTO RESERVATION VALUES(?, ?, ?)";
+		reservation.setRaid(userAID);
+		reservation.setRtid(tid);
+		
+		String[] list = sid.split(",");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userAID);
+			pstmt.setString(3, tid);
+			
+			for(int i = 0; i < list.length; i++) {
+				pstmt.setString(2,  list[i]);
+				int cnt = pstmt.executeUpdate();
+			}
+			conn.commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+
+	}
+	
 
 }

@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+
+  --primary-50: #fafafa;
+  --primary-100: #f5f5f5;
+  --primary-200: #e5e5e5;
+  --primary-300: #d4d4d8;
+  --primary-400: #a3a3a3;
+  --primary-500: #78716c;
+  --primary-600: #525252;
+  --primary-700: #404040;
+  --primary-800: #262626;
+  --primary-900: #171717;
+}
+
+html {
+  --primary-color: 0;
+  height: 100vmin;
+  /* display: grid;
+	place-items: center; */
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+  color: var(--primary-900);
+  background-color: var(--primary-50);
+
+  width: 100%;
+  height: 100vmin;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 4em;
+  line-height: 1.2;
+  padding-block: 1rem;
+  margin-inline: 1rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  padding-inline: 1rem;
+}
+
+form label {
+  display: block;
+  margin-inline: 0.5rem;
+  margin-block: 0.5rem;
+
+  line-height: 1;
+
+  font-size: 2em;
+  font-weight: 600;
+}
+
+form label > .label-sm {
+  font-size: 0.5em;
+  display: block;
+}
+
+form :is(select, input) {
+  padding-inline: 0.5rem;
+  padding-block: 0.75rem;
+
+  border: 3px solid var(--primary-700);
+  border-radius: 0.5rem;
+
+  width: 100%;
+  background-color: var(--primary-100);
+
+  font-size: 2em;
+  font-family: monospace;
+}
+
+.row-span {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  /* grid-column: 1 / -1; */
+  padding-inline: 1rem;
+  padding-block: 1rem;
+
+  border: 3px solid var(--primary-800);
+  border-radius: 0.5rem;
+
+  /* width: 100%; */
+  background-color: var(--primary-500);
+  font-size: 1.5em;
+  color: white;
+  font-weight: 800;
+  font-family: sans-serif;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.blank {
+  background-color: var(--primary-50);
+  color: var(--primary-900);
+}
+
+.book-btn {
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+
+  border: 3px solid var(--primary-700);
+  border-radius: 0.5rem;
+
+  background-color: var(--primary-500);
+  color: white;
+  font-size: 1em;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.item > a {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  background-color: var(--primary-500);
+
+  border: 3px solid var(--primary-800);
+  border-radius: 0.5rem;
+
+  text-decoration: none;
+  color: var(--primary-100);
+
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+:is(.btn:hover, .book-btn:hover, .item > a:hover) {
+  background-color: var(--primary-700);
+}
+
+.blank:hover {
+  background-color: var(--primary-400);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding-inline: 1rem;
+  width: auto;
+}
+
+.place {
+  display: flex;
+  place-content: center;
+  width: 100%;
+
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border: 3px solid var(--primary-700);
+  border-radius: 0.5rem;
+
+  font-family: monospace;
+  text-transform: capitalize;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: center;
+
+  gap: 1rem;
+
+  margin-top: 1rem;
+}
+
+.grid-3 .head {
+  font-weight: 900;
+  border-bottom: 3px solid var(--primary-500);
+  background-color: var(--primary-300);
+  text-align: center;
+}
+
+.grid-3 :is(.head, .item) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  font-size: 1.25rem;
+  text-transform: capitalize;
+
+  padding: 1rem;
+}
+
+.grid-3
+  :is(.item:nth-child(6n + 1), .item:nth-child(6n + 2), .item:nth-child(6n
+      + 3)) {
+  background-color: var(--primary-200);
+}
+
+.bus-grid {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.bus-grid :is(.head, .item) {
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
+
+.seat {
+  width: 3rem;
+  height: 3rem;
+  accent-color: var(--primary-400);
+}
+
+div .item.date {
+  font-size: 2em;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    flex-direction: column;
+    align-items: flex-start;
+
+    font-size: 3em;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    padding-inline: 1rem;
+  }
+
+  form div {
+    grid-column: 1 / -1;
+  }
+
+  form :is(select, input) {
+    padding-inline: 0.5rem;
+    padding-block: 0.75rem;
+
+    border: 3px solid var(--primary-700);
+    border-radius: 0.5rem;
+
+    width: 100%;
+    background-color: var(--primary-100);
+
+    font-size: 2em;
+    font-family: monospace;
+  }
+
+  .place {
+    width: 60%;
+  }
+}

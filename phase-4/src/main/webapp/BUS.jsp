@@ -17,42 +17,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>bus page</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css" />
+	<title>Routes</title>
 </head>
-<body>
-	<div>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>날짜</th>
-					<th>시간</th>
-					<th>depart station</th>
-					<th>arrive station</th>
-					<th>버스 상세 정보</th>
-					<th>예약</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%
-					BusDAO busDAO = new BusDAO();
-					ArrayList<Businfo> list = busDAO.getList(businfo);
-					for(int i = 0; i < list.size(); i++){
-				%>
-				<tr>
-					<td><%= list.get(i).getDdate() %></td>
-					<td><%= list.get(i).getTime().substring(0, 2) + "시" + list.get(i).getTime().substring(3, 5) + "분" %></td>
-					<td><%= list.get(i).getDstation() %></td>
-					<td><%= list.get(i).getAstation() %></td>
-					<td><a href='busdetails.jsp'>버스 정보 상세보기 </a></td>
-					<td><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
-					&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>예약하기</a></td>
-				</tr>
-				<%
-					}
-				%>
-			</tbody>
-		</table>
-	</div>  
-</body>
+	<body>
+		<%
+			String userAID = null;
+			if(session.getAttribute("userAid") != null){
+				userAID = (String) session.getAttribute("userAid");
+			}
+		%>
+		<div>
+			<ul>
+				<li><a href="main.jsp">main page</a>
+		<%
+			if(userAID == null){
+		%>
+				<li><a href="login.jsp">login</a>
+				<li><a href="signup.jsp">sign up</a>
+		<%
+			} else{
+		%>
+			<li><a href="myReservation.jsp">myReservation</a>
+			<li><a href="logoutAction.jsp">logout</a>
+		<%
+			}
+		%>
+			</ul>
+		</div>
+		<h1>Timetable of <span style="display: flex;"><% out.println(businfo.getDdate()); %></span></h1>
+		<div class="title">
+			<span class="place depart"><% out.println(businfo.getDstation()); %></span>
+			<svg
+			  xmlns="http://www.w3.org/2000/svg"
+			  fill="none"
+			  viewBox="0 0 24 24"
+			  stroke-width="3"
+			  stroke="currentColor"
+			  style="width: 1.5rem; height: 1.5rem; flex-shrink: 0;"
+			>
+			  <path
+			    stroke-linecap="round"
+			    stroke-linejoin="round"
+			    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+			  />
+			</svg>
+			<span class="place arrival"><% out.println(businfo.getAstation()); %></span>
+		</div>
+		<div class="grid-3">
+			<div class="head">Details</div>
+			<div class="head">Time</div>
+			<div class="head">Book</div>
+			
+			<%
+				BusDAO busDAO = new BusDAO();
+				ArrayList<Businfo> list = busDAO.getList(businfo);
+				for(int i = 0; i < list.size(); i++){
+			%>
+			<div class="item"><a href='busdetails.jsp'>Bus Details</a></div>
+			<div class="item date"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
+			<div class="item"><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
+			&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>Ticket</a></div>
+			<%
+				}
+			%>
+		</div>  
+	</body>
 </html>
