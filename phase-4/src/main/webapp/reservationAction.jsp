@@ -61,6 +61,6 @@
 			<td><%= info.getPrice() %></td>
 		<tr>
 	</table>
-	<a href="complete.jsp?fee=<%= info.getPrice() %>&tid=<%= info.getTid() %>&sid=<%= info.getSid() %>" value="reserve">reserve</a>
+	<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>" value="reserve">reserve</a>
 </body>
 </html>

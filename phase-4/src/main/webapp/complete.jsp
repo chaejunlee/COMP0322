@@ -23,8 +23,8 @@
 		}
 		
 		int price = Integer.valueOf(request.getParameter("fee"));
-		String tid = request.getParameter("tid");
-		String sid = request.getParameter("sid");
+		String tid = request.getParameter("rtid");
+		String sid = request.getParameter("rsid");
 
 		ReservationDAO reserveDAO = new ReservationDAO();
 		int result = reserveDAO.completeReserve(reservation, userAID, tid, sid, price);
