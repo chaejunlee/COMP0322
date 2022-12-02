@@ -1,0 +1,129 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  --primary-color: 10;
+  height: 100vmin;
+  display: grid;
+  place-items: center;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: hsl(var(--primary-color), 80%, 10%);
+  background-color: hsl(var(--primary-color), 30%, 95%);
+
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.2;
+  padding-block: 0.5em;
+  margin-inline: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-inline: 1rem;
+  gap: 1rem;
+}
+
+form label {
+  display: block;
+  font-size: 1.5em;
+  margin-inline: 0.5rem;
+}
+
+form :is(select, input) {
+  font-size: 1.5rem;
+  padding-inline: 0.5rem;
+  padding-block: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  width: 100%;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  font-size: 1.5rem;
+  padding-inline: 1rem;
+  padding-block: 1rem;
+  border: 3px solid hsl(var(--primary-color), 90%, 20%);
+  border-radius: 0.5rem;
+  color: white;
+  background-color: hsl(var(--primary-color), 90%, 60%);
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit:hover {
+  background-color: hsl(var(--primary-color), 90%, 50%);
+}
+
+.place {
+  font-size: 1.5rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  background-color: hsl(var(--primary-color), 90%, 80%);
+  border-radius: 0.5rem;
+
+  font-family: monospace;
+  text-transform: capitalize;
+}
+
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-content: center;
+}
+
+.grid-5 .head {
+  font-weight: 900;
+  border-bottom: hsl(var(--primary-color), 80%, 10%) 3px solid;
+  background-color: hsl(var(--primary-color), 30%, 90%);
+}
+
+.grid-5 :is(.head, .item) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.grid-5
+  :is(.item:nth-child(10n + 1), .item:nth-child(10n + 2), .item:nth-child(10n
+      + 3), .item:nth-child(10n + 4), .item:nth-child(10n + 5)) {
+  background-color: hsl(var(--primary-color), 30%, 90%);
+}
+
+.book-btn {
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  font-size: 1rem;
+  border: 3px solid hsl(var(--primary-color), 90%, 20%);
+  border-radius: 0.5rem;
+  color: white;
+  background-color: hsl(var(--primary-color), 90%, 60%);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.book-btn:hover {
+  background-color: hsl(var(--primary-color), 90%, 50%);
+}

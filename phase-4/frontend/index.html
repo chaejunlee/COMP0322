@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>KNU_BUS</title>
+  </head>
+  <body>
+    <h1>KNU BUS</h1>
+    <form method="get" action="./routes.html">
+      <div>
+        <label style="display: block" for="depart">Departure</label>
+        <select name="depart" id="depart">
+          <option value="dongdaegu">Dongdaegu</option>
+          <option value="seosan">Seosan</option>
+          <option value="seoul">Seoul</option>
+          <option value="daegu">Daegu</option>
+          <option value="busan">Busan</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="display: block" for="arrival">Arrival</label>
+        <select name="arrival" id="arrival">
+          <option value="gapyeong">Gapeyeong</option>
+          <option value="kwangmyeong">Kwangmyeong</option>
+          <option value="seoul">Seoul</option>
+          <option value="daegu">Daegu</option>
+          <option value="busan">Busan</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="date">Date</label>
+        <input name="date" id="date" type="date" />
+      </div>
+
+      <div>
+        <label for="time">Time</label>
+        <input name="time" id="time" type="time" />
+      </div>
+
+      <button style="margin-top: 0.5rem" class="submit" type="submit">
+        Search
+      </button>
+    </form>
+  </body>
+  <script>
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    now.setSeconds(null, 0);
+    dateInput.valueAsDate = now;
+    timeInput.valueAsDate = now;
+  </script>
+</html>
