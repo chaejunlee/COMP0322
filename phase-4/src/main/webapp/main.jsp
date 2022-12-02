@@ -22,7 +22,7 @@
     <h1 class="px-1">Find Your Trip!</h1>
     <main>
     <div class="border flex">
-    	<div class="bg-primary"><h2 class="title">🚌   Explore the Fun   🚐</h2></div>
+    	<div class="bg-primary"><h2 class="title">🚌   Explore the Fun   🚌</h2></div>
 	    <form class="py-1 grid-3" method="post" action="./BUS.jsp">
 			<div>
 				<label class="small" for="ddate">Date</label>

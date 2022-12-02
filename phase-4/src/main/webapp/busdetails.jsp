@@ -47,7 +47,7 @@ String tid = request.getParameter("tid");
 			%>
 		</div>
 	</div>
-	<div class="grid-3 gap-1 px-1">
+	<div class="grid-3 gap-1 px-1 border py-1">
 		<%
 			for (int i = 0; i < list.size(); i++) {
 		%>
