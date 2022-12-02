@@ -46,9 +46,9 @@
 		%>
 			</ul>
 		</div>
-		<h1>Routes</h1>
+		<h1>Timetable of <span style="display: flex;"><% out.println(businfo.getDdate()); %></span></h1>
 		<div class="title">
-			<span class="place depart">Dongdaegu</span>
+			<span class="place depart"><% out.println(businfo.getDstation()); %></span>
 			<svg
 			  xmlns="http://www.w3.org/2000/svg"
 			  fill="none"
@@ -63,14 +63,11 @@
 			    d="M8.25 4.5l7.5 7.5-7.5 7.5"
 			  />
 			</svg>
-			<span class="place arrival">Gapyeong</span>
+			<span class="place arrival"><% out.println(businfo.getAstation()); %></span>
 		</div>
-		<div class="grid-6">
-			<div class="head">Date</div>
-			<div class="head">Time</div>
-			<div class="head">Departure</div>
-			<div class="head">Arrival</div>
+		<div class="grid-3">
 			<div class="head">Details</div>
+			<div class="head">Time</div>
 			<div class="head">Book</div>
 			
 			<%
@@ -78,11 +75,8 @@
 				ArrayList<Businfo> list = busDAO.getList(businfo);
 				for(int i = 0; i < list.size(); i++){
 			%>
-			<div class="item"><%= list.get(i).getDdate() %></div>
-			<div class="item"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
-			<div class="item"><%= list.get(i).getDstation() %></div>
-			<div class="item"><%= list.get(i).getAstation() %></div>
 			<div class="item"><a href='busdetails.jsp'>Bus Details</a></div>
+			<div class="item date"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
 			<div class="item"><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
 			&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>Ticket</a></div>
 			<%
