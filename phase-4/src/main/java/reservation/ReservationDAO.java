@@ -10,6 +10,7 @@ public class ReservationDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
+	private ResultSet rs1 = null;
 	private Statement stmt = null;
 	private String sql;
 
@@ -56,7 +57,7 @@ public class ReservationDAO {
 			return list;
 		}
 	
-	public int completeReserve(Reservation reservation, String userAID, String tid, String sid, int fee) {
+	public int completeReserve(Reservation reservation, String userAID, String tid, String sid, String age, int fee) {
 		
 		int price = 0;
 		sql = "SELECT POINT FROM ACCOUNT WHERE AID = '" + userAID + "'";
@@ -83,9 +84,12 @@ public class ReservationDAO {
 			return -1;
 		}
 		
-		sql = "INSERT INTO RESERVATION VALUES(?, ?, ?)";
+		sql = "INSERT INTO RESERVATION VALUES(?, ?, ?, ?)";
 		reservation.setRaid(userAID);
 		reservation.setRtid(tid);
+		
+		String[] ageValue = {"9-", "18-", "18+"};
+		int[] ages = {Integer.valueOf(age.charAt(0))-48, Integer.valueOf(age.charAt(1))-48, Integer.valueOf(age.charAt(2))-48};
 		
 		String[] list = sid.split(",");
 		try {
@@ -93,8 +97,17 @@ public class ReservationDAO {
 			pstmt.setString(1, userAID);
 			pstmt.setString(3, tid);
 			
+			
 			for(int i = 0; i < list.length; i++) {
 				pstmt.setString(2,  list[i]);
+				for(int j = 0; j < ages.length; j++) {
+					if(ages[j] != 0) {
+						pstmt.setString(4, ageValue[j]);
+						ages[j]--;
+						break;
+					}
+				}
+				
 				int cnt = pstmt.executeUpdate();
 			}
 			conn.commit();
@@ -106,5 +119,51 @@ public class ReservationDAO {
 
 	}
 	
+	public ArrayList<MyTicket> getReservation(String aid){
+		String sid, age, tid = "";
+		ArrayList <MyTicket> list = new ArrayList <MyTicket>();
+		
+		sql = "SELECT RSID, RTID, RAGE FROM RESERVATION WHERE RAID = '" + aid + "'";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				MyTicket ticket = new MyTicket();
+				sid = rs.getString(1);
+				tid = rs.getString(2);
+				age = rs.getString(3);
+				
+				sql = "SELECT DSTATION, ASTATION, TDATE, DEPART_TIME, ARRIVE_TIME, DPLATFORM, APLATFORM, TBID FROM TIMETABLE, ROUTE WHERE TRID = RID AND TID = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tid);
+				
+				try {
+					rs1 = pstmt.executeQuery();
+					while(rs1.next()) {
+						ticket.setTid(tid);
+						ticket.setSid(sid);
+						ticket.setDstation(rs1.getString(1));
+						ticket.setAstation(rs1.getString(2));
+						ticket.setDdate(rs1.getString(3));
+						ticket.setDtime(rs1.getString(4));
+						ticket.setAtime(rs1.getString(5));
+						ticket.setDplatform(rs1.getString(6));
+						ticket.setAplatform(rs1.getString(7));
+						ticket.setBid(rs1.getString(8));
+						ticket.setAge(age);
+						list.add(ticket);
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 
 }

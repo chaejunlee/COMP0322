@@ -7,9 +7,7 @@ public class ReservationInfo {
 	private String arrive;
 	private String ddate;
 	private String dtime;
-	private String child;
-	private String teenager;
-	private String adult;
+	private String age;
 	private int price;
 	
 	public String getTid() {
@@ -48,23 +46,11 @@ public class ReservationInfo {
 	public void setDtime(String dtime) {
 		this.dtime = dtime;
 	}
-	public String getChild() {
-		return child;
+	public String getAge() {
+		return age;
 	}
-	public void setChild(String child) {
-		this.child = child;
-	}
-	public String getTeenager() {
-		return teenager;
-	}
-	public void setTeenager(String teenager) {
-		this.teenager = teenager;
-	}
-	public String getAdult() {
-		return adult;
-	}
-	public void setAdult(String adult) {
-		this.adult = adult;
+	public void setAge(String age) {
+		this.age = age;
 	}
 	public int getPrice() {
 		return price;

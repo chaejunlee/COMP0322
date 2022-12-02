@@ -27,12 +27,12 @@ public class ReserveInfoDAO {
 		}
 	}
 	
-	public ReservationInfo getReserve(ReservationInfo reserve, String[] sidList){		
+	public ReservationInfo getReserve(ReservationInfo reserve, String[] sidList, String age){		
 			
 			String[] priceList = {"18+", "18-", "9-"};
 			String str = "";
 			int[] price = {0, 0, 0};
-			int[] arr = {Integer.valueOf(reserve.getAdult()), Integer.valueOf(reserve.getTeenager()), Integer.valueOf(reserve.getChild())};
+			int[] arr = {Integer.valueOf(age.charAt(2))-48, Integer.valueOf(age.charAt(1))-48, Integer.valueOf(age.charAt(0))-48};
 			int total = 0;
 			
 			sql = "SELECT T.TRID, B.BTYPE FROM TIMETABLE T, BUS B WHERE TID = ? AND T.TBID = B.BID";
@@ -75,6 +75,7 @@ public class ReserveInfoDAO {
 					}
 				}
 				
+				reserve.setAge(age);
 				reserve.setPrice(total);
 				reserve.setSid(str);
 			}catch (Exception e) {

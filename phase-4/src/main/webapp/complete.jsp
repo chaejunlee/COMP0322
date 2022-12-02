@@ -9,6 +9,8 @@
 <jsp:useBean id="reservation" class="reservation.Reservation" scope="page" />
 <jsp:setProperty name="reservation" property="rsid" />
 <jsp:setProperty name="reservation" property="rtid" />
+<jsp:setProperty name="reservation" property="rtid" />
+<jsp:setProperty name="reservation" property="rage" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +27,10 @@
 		int price = Integer.valueOf(request.getParameter("fee"));
 		String tid = request.getParameter("rtid");
 		String sid = request.getParameter("rsid");
+		String age = request.getParameter("rage");
 
 		ReservationDAO reserveDAO = new ReservationDAO();
-		int result = reserveDAO.completeReserve(reservation, userAID, tid, sid, price);
+		int result = reserveDAO.completeReserve(reservation, userAID, tid, sid, age, price);
 		
 		if(result == -1){
 			PrintWriter script = response.getWriter();
