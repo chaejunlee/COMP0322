@@ -32,7 +32,7 @@
 	<div>
 		<ul>
 			<li><a href="main.jsp">main page</a>
-			<li><a href="administrator.jsp">Administrator</a>
+			<li><a href="./admin/admin.jsp">Administrator</a>
 	<%
 		if(userAID == null){
 	%>
