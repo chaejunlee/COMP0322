@@ -80,6 +80,7 @@
 	<div class="grid-3 px-1">
 		<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" style="margin-top: 1rem;" class="row-span btn" value="reserve">Reserve</a>
 	</div>
+	<a href = "reservation.jsp?rtid = <%= info.getTid() %>&depart=<%= info.getDepart() %>&arrive=<%= info.getArrive() %>&ddate=<%= info.getDdate() %>&dtime=<%= info.getDtime() %>" value = "back">back</a>
 	</main>
 	<jsp:include page="footer.jsp" />
 </body>
