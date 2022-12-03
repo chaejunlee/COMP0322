@@ -76,11 +76,9 @@ public class ReservationDAO {
 			return -1;
 		}
 		
-		sql = "UPDATE ACCOUNT SET POINT = " + price + " WHERE AID = '" + userAID + "'"; 
 		try {
-			stmt = conn.createStatement();
-			int count = stmt.executeUpdate(sql);			
-		} catch (Exception e) {
+			conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		}catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
@@ -111,12 +109,28 @@ public class ReservationDAO {
 				
 				int cnt = pstmt.executeUpdate();
 			}
+			
+		} catch(SQLIntegrityConstraintViolationException e) {
+			return 2;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		sql = "UPDATE ACCOUNT SET POINT = " + price + " WHERE AID = '" + userAID + "'"; 
+		try {
+			stmt = conn.createStatement();
+			int count = stmt.executeUpdate(sql);	
+			Thread.sleep(3000);
 			conn.commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
+		
+
 
 	}
 	
@@ -167,19 +181,31 @@ public class ReservationDAO {
 	}
 	
 	public int cancelReservation(Reservation reservation) {
-		int price = 0;
+		int price = 0, count = -1;
 		
 		String sid = reservation.getRsid();
 		String aid = reservation.getRaid();
 		String tid = reservation.getRtid();
 		String age = reservation.getRage();
 		
+		try {
+			conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
 		sql = "DELETE FROM RESERVATION WHERE RSID = '" + sid + "' AND RTID = '" + tid + "'";
 		
 		try {
 			stmt = conn.createStatement();
-			int count = stmt.executeUpdate(sql);
+			count = stmt.executeUpdate(sql);
 		
+			System.out.println(count);
+			if(count == 0) {
+				return 2;
+			}
+			
 			sql = "SELECT P.FEE FROM PRICE P WHERE P.AGE = '" + age + "' AND ((P.BUSTYPE, P.PRID) = (SELECT B.BTYPE, T.TRID"
 					+ " FROM BUS B, TIMETABLE T WHERE B.BID = T.TBID AND T.TID = '" + tid + "'))";
 			try {
@@ -198,10 +224,13 @@ public class ReservationDAO {
 			return -1;
 		}
 		
+	
+		
 		try {
 			sql = "UPDATE ACCOUNT SET POINT = POINT + " + String.valueOf(price) + " WHERE AID = '" + aid + "'";
-			int cnt = stmt.executeUpdate(sql);
+			stmt.executeUpdate(sql);
 			
+			Thread.sleep(3000);
 			conn.commit();
 			return 1;
 		}catch (Exception e) {

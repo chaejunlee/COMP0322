@@ -42,14 +42,22 @@
 			script.println("alert('no money.')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
+		}		
+		else if(result == 2){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('the set has been already reserved')");
+			script.println("history.back()");
+			script.println("</script>");
 		}
 		else if(result == 1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('success')");
-			script.println("location.href = 'main.jsp'");
+			script.println("location.href = 'myReservation.jsp'");
 			script.println("</script>");
-		}		
+		}
+		
 	%>
 	
 </body>
