@@ -22,7 +22,8 @@ CREATE TABLE ACCOUNT(
     PW VARCHAR(15) NOT NULL,
     Phone CHAR(11),
     Point NUMBER,
-    PRIMARY KEY(Aid)
+    PRIMARY KEY(Aid),
+    UNIQUE (Email)
 );
 
 CREATE TABLE SEAT(
