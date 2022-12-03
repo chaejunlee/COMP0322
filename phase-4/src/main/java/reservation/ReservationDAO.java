@@ -12,6 +12,7 @@ public class ReservationDAO {
 	private ResultSet rs = null;
 	private ResultSet rs1 = null;
 	private Statement stmt = null;
+	private Statement stmt1 = null;
 	private String sql;
 
 	public ReservationDAO() {
@@ -163,6 +164,50 @@ public class ReservationDAO {
 		}
 		
 		return list;
+	}
+	
+	public int cancelReservation(Reservation reservation) {
+		int price = 0;
+		
+		String sid = reservation.getRsid();
+		String aid = reservation.getRaid();
+		String tid = reservation.getRtid();
+		String age = reservation.getRage();
+		
+		sql = "DELETE FROM RESERVATION WHERE RSID = '" + sid + "' AND RTID = '" + tid + "'";
+		
+		try {
+			stmt = conn.createStatement();
+			int count = stmt.executeUpdate(sql);
+		
+			sql = "SELECT P.FEE FROM PRICE P WHERE P.AGE = '" + age + "' AND ((P.BUSTYPE, P.PRID) = (SELECT B.BTYPE, T.TRID"
+					+ " FROM BUS B, TIMETABLE T WHERE B.BID = T.TBID AND T.TID = '" + tid + "'))";
+			try {
+				rs = stmt.executeQuery(sql);
+				while(rs.next()) {
+					price = rs.getInt(1);
+				}
+				conn.commit();
+			}catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			}
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		try {
+			sql = "UPDATE ACCOUNT SET POINT = POINT + " + String.valueOf(price) + " WHERE AID = '" + aid + "'";
+			int cnt = stmt.executeUpdate(sql);
+			
+			conn.commit();
+			return 1;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}	
 	}
 
 

@@ -78,7 +78,7 @@
 				</div>
 			</div>
 			
-			<div style="display: flex; justify-content: flex-end;" class="px-1 py-1"><a class="btn-sm" href="cancelAction.jsp?sid=<%= reserveList.get(i).getSid() %>&tid=<%= reserveList.get(i).getTid() %>&aid=<%= userAID %>">Cancel Reservation</a></div>
+			<div style="display: flex; justify-content: flex-end;" class="px-1 py-1"><a class="btn-sm" href="cancelAction.jsp?rsid=<%= reserveList.get(i).getSid() %>&rtid=<%= reserveList.get(i).getTid() %>&rage=<%= reserveList.get(i).getAge() %>&raid=<%= userAID %>">Cancel Reservation</a></div>
 		</div>
 	<%
 		}	
