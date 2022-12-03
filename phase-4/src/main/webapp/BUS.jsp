@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!-- import JDBC package -->
 <%@ page language="java" import="java.text.*, java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="businfo.BusDAO" %>
 <%@ page import="businfo.Businfo" %>
@@ -17,42 +18,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>bus page</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css" />
+	<title>Timetables :: UNI-BUS</title>
 </head>
-<body>
-	<div>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>날짜</th>
-					<th>시간</th>
-					<th>depart station</th>
-					<th>arrive station</th>
-					<th>버스 상세 정보</th>
-					<th>예약</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%
-					BusDAO busDAO = new BusDAO();
-					ArrayList<Businfo> list = busDAO.getList(businfo);
-					for(int i = 0; i < list.size(); i++){
-				%>
-				<tr>
-					<td><%= list.get(i).getDdate() %></td>
-					<td><%= list.get(i).getTime().substring(0, 2) + "시" + list.get(i).getTime().substring(3, 5) + "분" %></td>
-					<td><%= list.get(i).getDstation() %></td>
-					<td><%= list.get(i).getAstation() %></td>
-					<td><a href='busdetails.jsp'>버스 정보 상세보기 </a></td>
-					<td><a href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
-					&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>예약하기</a></td>
-				</tr>
-				<%
-					}
-				%>
-			</tbody>
-		</table>
-	</div>  
-</body>
+	<body>
+		<jsp:include page="header.jsp" />
+		<h1 class="px-1" style="transform: translateY(-16px);">
+			<span style="font-size: 0.5em;">Timetable of</span>
+			<span style="display: flex;"><% out.println(businfo.getDdate()); %></span>
+		</h1>
+		<main>
+		<div class="title px-1">
+			<span class="place depart"><% out.println(businfo.getDstation()); %></span>
+			<svg
+			  xmlns="http://www.w3.org/2000/svg"
+			  fill="none"
+			  viewBox="0 0 24 24"
+			  stroke-width="3"
+			  stroke="currentColor"
+			  style="width: 2rem; height: 2rem; flex-shrink: 0;"
+			>
+			  <path
+			    stroke-linecap="round"
+			    stroke-linejoin="round"
+			    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+			  />
+			</svg>
+			<span class="place arrival"><% out.println(businfo.getAstation()); %></span>
+		</div>
+		<div class="grid-3 grid-2-1-1 px-1">
+			<div class="head">Time</div>
+			<div class="head">Details</div>
+			<div class="head">Ticket</div>
+			
+			<%
+				BusDAO busDAO = new BusDAO();
+				ArrayList<Businfo> list = busDAO.getList(businfo);
+				for(int i = 0; i < list.size(); i++){
+			%>
+			<div class="item date"><%= list.get(i).getTime().substring(0, 2) + ":" + list.get(i).getTime().substring(3, 5) %></div>
+			<div class="item"><a class="btn-sm blank" href='busdetails.jsp?tid=<%= list.get(i).getTid() %>'>Show</a></div>
+			<div class="item"><a class="btn-sm" href='reservation.jsp?rtid=<%= list.get(i).getTid() %>&depart=<%= list.get(i).getDstation() %>
+			&arrive=<%= list.get(i).getAstation() %>&ddate=<%= list.get(i).getDdate() %>&dtime=<%= list.get(i).getTime() %>'>Book</a></div>
+			<%
+				}
+			%>
+		</div>  
+		</main>
+		<jsp:include page="footer.jsp" />
+	</body>
 </html>

@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login action page</title>
+<title>Sign In :: UNI-BUS</title>
 </head>
 <body>
 	<%

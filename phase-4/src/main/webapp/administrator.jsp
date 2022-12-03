@@ -5,10 +5,8 @@
 
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="administrator.AdministratorDAO" %>
-<%@ page import="bus.Bus" %>
 
-<%@ page import ="java.sql.Connection"%>
+<%@ page import ="java.sql.Connection" %>
 <%@ page import ="java.sql.DriverManager"%>
 <%@ page import ="java.sql.PreparedStatement"%>
 <%@ page import ="java.sql.ResultSet"%>
@@ -35,7 +33,6 @@ conn = DriverManager.getConnection(url, user, pass);
 <html>
 
 <head>
-    <meta charset="EUC-KR">
     <title>Insert title here</title>
 </head>
 

@@ -4,6 +4,7 @@ public class Reservation {
 	private String raid;
 	private String rsid;
 	private String rtid;
+	private String rage;
 	
 	public String getRaid() {
 		return raid;
@@ -23,6 +24,11 @@ public class Reservation {
 	public void setRtid(String rtid) {
 		this.rtid = rtid;
 	}
-	
+	public String getRage() {
+		return rage;
+	}
+	public void setRage(String rage) {
+		this.rage = rage;
+	}
 	
 }

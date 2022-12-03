@@ -107,4 +107,22 @@ public class UserDAO {
 			return -1; // error
 		}
 	}
+	
+	public int getPoint(String aid) {
+		int point = 0;
+		sql = "SELECT POINT FROM ACCOUNT WHERE AID ='" + aid + "'";
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				point = rs.getInt(1);
+			}
+			 return point;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }

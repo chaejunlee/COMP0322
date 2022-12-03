@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>KNU_BUS</title>
+  </head>
+  <body>
+    <h1>Routes</h1>
+    <div class="title">
+      <span class="place depart">Dongdaegu</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="3"
+        stroke="currentColor"
+        style="width: 1.5rem; height: 1.5rem"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8.25 4.5l7.5 7.5-7.5 7.5"
+        />
+      </svg>
+      <span class="place arrival">Gapyeong</span>
+    </div>
+    <main>
+      <section>
+        <div class="grid-5">
+          <div class="head">Departure</div>
+          <div class="head">Arrival</div>
+          <div class="head">Date</div>
+          <div class="head">Time</div>
+          <div class="head">Book</div>
+
+          <div class="item">Dongdaegu</div>
+          <div class="item">Gapyeong</div>
+          <div class="item">2022-12-23</div>
+          <div class="item">15:00</div>
+          <div class="item"><button class="book-btn">Ticket</button></div>
+
+          <div class="item">Dongdaegu</div>
+          <div class="item">Gapyeong</div>
+          <div class="item">2022-12-23</div>
+          <div class="item">16:00</div>
+          <div class="item"><button class="book-btn">Ticket</button></div>
+
+          <div class="item">Dongdaegu</div>
+          <div class="item">Gapyeong</div>
+          <div class="item">2022-12-23</div>
+          <div class="item">17:00</div>
+          <div class="item"><button class="book-btn">Ticket</button></div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script>
+    function getAllUrlParams(url) {
+      var queryString = url
+        ? url.split("?")[1]
+        : window.location.search.slice(1);
+      var obj = {};
+
+      if (queryString) {
+        queryString = queryString.split("#")[0];
+        var arr = queryString.split("&");
+
+        for (var i = 0; i < arr.length; i++) {
+          var a = arr[i].split("=");
+          var paramName = a[0];
+          var paramValue = typeof a[1] === "undefined" ? true : a[1];
+
+          paramValue = paramValue.replace("%3A", ":");
+
+          paramName = paramName.toLowerCase();
+          if (typeof paramValue === "string")
+            paramValue = paramValue.toLowerCase();
+
+          if (paramName.match(/\[(\d+)?\]$/)) {
+            var key = paramName.replace(/\[(\d+)?\]/, "");
+            if (!obj[key]) obj[key] = [];
+
+            if (paramName.match(/\[\d+\]$/)) {
+              var index = /\[(\d+)\]/.exec(paramName)[1];
+              obj[key][index] = paramValue;
+            } else {
+              obj[key].push(paramValue);
+            }
+          } else {
+            if (!obj[paramName]) {
+              obj[paramName] = paramValue;
+            } else if (obj[paramName] && typeof obj[paramName] === "string") {
+              obj[paramName] = [obj[paramName]];
+              obj[paramName].push(paramValue);
+            } else {
+              obj[paramName].push(paramValue);
+            }
+          }
+        }
+      }
+
+      return obj;
+    }
+
+    const queryString = window.location.search;
+    const parsedData = getAllUrlParams(queryString);
+    const depart = document.querySelector(".depart");
+    const arrival = document.querySelector(".arrival");
+
+    depart.textContent = parsedData.depart;
+    arrival.textContent = parsedData.arrival;
+  </script>
+</html>
