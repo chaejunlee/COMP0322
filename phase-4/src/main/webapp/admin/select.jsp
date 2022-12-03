@@ -19,10 +19,10 @@ PreparedStatement pstmt = null;
 ResultSet rs = null;
 
 String serverIP = "localhost";
-String strSID = "xe";
-String portNum = "1600";
-String user = "knubus";
-String pass = "knubus";
+String strSID = "orcl";
+String portNum = "1521";
+String user = "BUS";
+String pass = "comp322";
 String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
 String sql = null;
 
@@ -51,7 +51,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String bid = rs.getString("BID");
+						String bid = rs.getString(1);
 					%>
 
 					<option value=<%=bid%>><%=bid%>
@@ -67,7 +67,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String bcompany = "'"+rs.getString("BCOMPANY")+"'";
+						String bcompany = "'"+rs.getString(1)+"'";
 					%>
 
 					<option value=<%=bcompany%>><%=bcompany%>
@@ -83,7 +83,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String btype = rs.getString("BTYPE");
+						String btype = rs.getString(1);
 					%>
 
 					<option value=<%=btype%>><%=btype%>
@@ -110,7 +110,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String dbid = rs.getString("DBID");
+						String dbid = rs.getString(1);
 					%>
 
 					<option value=<%=dbid%>><%=dbid%>
@@ -126,7 +126,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String dssn = rs.getString("DSSN");
+						String dssn = rs.getString(1);
 					%>
 
 					<option value=<%=dssn%>><%=dssn%>
@@ -142,7 +142,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String hours = rs.getString("hours");
+						String hours = rs.getString(1);
 					%>
 
 					<option value=<%=hours%>><%=hours%>
@@ -169,7 +169,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String ssn = rs.getString("ssn");
+						String ssn = rs.getString(1);
 					%>
 
 					<option value=<%=ssn%>><%=ssn%>
@@ -185,7 +185,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String fname = rs.getString("fname");
+						String fname = rs.getString(1);
 					%>
 
 					<option value=<%=fname%>><%=fname%>
@@ -201,7 +201,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String lname = rs.getString("lname");
+						String lname = rs.getString(1);
 					%>
 
 					<option value=<%=lname%>><%=lname%>
@@ -217,7 +217,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String salary = rs.getString("salary");
+						String salary = rs.getString(1);
 					%>
 
 					<option value=<%=salary%>><%=salary%>
@@ -233,7 +233,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String esname = rs.getString("esname");
+						String esname = rs.getString(1);
 					%>
 
 					<option value=<%=esname%>><%=esname%>
@@ -260,7 +260,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String age = rs.getString("age");
+						String age = rs.getString(1);
 					%>
 
 					<option value=<%=age%>><%=age%>
@@ -276,7 +276,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String bustype = rs.getString("bustype");
+						String bustype = rs.getString(1);
 					%>
 
 					<option value=<%=bustype%>><%=bustype%>
@@ -292,7 +292,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String fee = rs.getString("fee");
+						String fee = rs.getString(1);
 					%>
 
 					<option value=<%=fee%>><%=fee%>
@@ -308,7 +308,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String prid = rs.getString("prid");
+						String prid = rs.getString(1);
 					%>
 
 					<option value=<%=prid%>><%=prid%>
@@ -337,7 +337,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String raid = rs.getString("raid");
+						String raid = rs.getString(1);
 					%>
 
 					<option value=<%=raid%>><%=raid%>
@@ -353,7 +353,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String rsid = rs.getString("rsid");
+						String rsid = rs.getString(1);
 					%>
 
 					<option value=<%=rsid%>><%=rsid%>
@@ -369,7 +369,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String rtid = rs.getString("rtid");
+						String rtid = rs.getString(1);
 					%>
 
 					<option value=<%=rtid%>><%=rtid%>
@@ -399,7 +399,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String rid = rs.getString("rid");
+						String rid = rs.getString(1);
 					%>
 
 					<option value=<%=rid%>><%=rid%>
@@ -415,7 +415,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String dstation = rs.getString("dstation");
+						String dstation = rs.getString(1);
 					%>
 
 					<option value=<%=dstation%>><%=dstation%>
@@ -431,7 +431,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String astation = rs.getString("astation");
+						String astation = rs.getString(1);
 					%>
 
 					<option value=<%=astation%>><%=astation%>
@@ -447,7 +447,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String dplatform = rs.getString("dplatform");
+						String dplatform = rs.getString(1);
 					%>
 
 					<option value=<%=dplatform%>><%=dplatform%>
@@ -463,7 +463,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String aplatform = rs.getString("aplatform");
+						String aplatform = rs.getString(1);
 					%>
 
 					<option value=<%=aplatform%>><%=aplatform%>
@@ -492,7 +492,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String stname = rs.getString("stname");
+						String stname = rs.getString(1);
 					%>
 
 					<option value=<%=stname%>><%=stname%>
@@ -508,7 +508,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String totalplatform = rs.getString("totalplatform");
+						String totalplatform = rs.getString(1);
 					%>
 
 					<option value=<%=totalplatform%>>
@@ -525,7 +525,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String address = "'"+rs.getString("address")+"'";
+						String address = "'"+rs.getString(1)+"'";
 					%>
 
 					<option value=<%=address%>><%=address%>
@@ -541,7 +541,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String zipcode = rs.getString("zipcode");
+						String zipcode = rs.getString(1);
 					%>
 
 					<option value=<%=zipcode%>><%=zipcode%>
@@ -572,7 +572,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String tid = rs.getString("tid");
+						String tid = rs.getString(1);
 					%>
 
 					<option value=<%=tid%>><%=tid%>
@@ -588,7 +588,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String tdate = "'"+rs.getString("tdate")+"'";
+						String tdate = "'"+rs.getString(1)+"'";
 					%>
 
 					<option value=<%=tdate%>><%=tdate%>
@@ -604,7 +604,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String depart_time = "'"+rs.getString("depart_time")+"'";
+						String depart_time = "'"+rs.getString(1)+"'";
 					%>
 
 					<option value=<%=depart_time%>><%=depart_time%>
@@ -620,7 +620,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String arrive_time = "'"+rs.getString("arrive_time")+"'";
+						String arrive_time = "'"+rs.getString(1)+"'";
 					%>
 
 					<option value=<%=arrive_time%>><%=arrive_time%>
@@ -636,7 +636,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String tbid = rs.getString("tbid");
+						String tbid = rs.getString(1);
 					%>
 
 					<option value=<%=tbid%>><%=tbid%>
@@ -652,7 +652,7 @@ conn = DriverManager.getConnection(url, user, pass);
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
-						String trid = rs.getString("trid");
+						String trid = rs.getString(1);
 					%>
 
 					<option value=<%=trid%>><%=trid%>

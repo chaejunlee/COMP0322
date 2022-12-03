@@ -18,10 +18,10 @@ PreparedStatement pstmt = null;
 ResultSet rs = null;
 
 String serverIP = "localhost";
-String strSID = "xe";
-String portNum = "1600";
-String user = "knubus";
-String pass = "knubus";
+String strSID = "orcl";
+String portNum = "1521";
+String user = "BUS";
+String pass = "comp322";
 String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
 String sql = null;;
 
