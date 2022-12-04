@@ -1,0 +1,6 @@
+# TeamX-task1.txt
+### GitHub Link
+> https://github.com/chaejunlee/COMP0322/graphs/contributors
+
+### GitHub Contributors Graph
+> https://github.com/chaejunlee/COMP0322/graphs/contributors

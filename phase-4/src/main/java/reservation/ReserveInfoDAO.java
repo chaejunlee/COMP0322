@@ -1,6 +1,7 @@
 package reservation;
 
 import java.sql.*;
+import config.Properties;
 
 public class ReserveInfoDAO {
 
@@ -12,11 +13,11 @@ public class ReserveInfoDAO {
 
 	public ReserveInfoDAO() {
 		try {
-			String serverIP = "localhost";
-			String strSID = "orcl";
-			String portNum = "1521";
-			String user = "BUS";
-			String pass = "comp322";
+			String serverIP = Properties.serverIP;
+			String strSID = Properties.strSID;
+			String portNum = Properties.portNum;
+			String user = Properties.user;
+			String pass = Properties.pass;
 			String url = "jdbc:oracle:thin:@" + serverIP + ":" + portNum + ":" + strSID;
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
