@@ -15,14 +15,14 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
-    <title>Main :: UNI-BUS</title>
+    <title>Main :: UniBus</title>
   </head>
   <body>
     <jsp:include page="header.jsp" />
     <h1 class="px-1">Find Your Trip!</h1>
-    <main>
-    <div class="border flex">
-    	<div class="bg-primary"><h2 class="title">🚌   Explore the Fun   🚌</h2></div>
+    <main class="mx-auto max-w px-1 py-2">
+    <div class="border">
+    	<div class="bg-primary"><h2 class="px-1 py-05">Explore the Fun&nbsp; 🚌💨</h2></div>
 	    <form class="py-1 grid-3" method="post" action="./BUS.jsp">
 			<div>
 				<label class="small" for="ddate">Date</label>

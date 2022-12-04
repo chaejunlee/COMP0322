@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css" />
-<title>Sign Up :: UNI-BUS</title>
+<title>Sign Up :: UniBus</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
 	<h1 class="px-1">Sign Up</h1>
-	<main class="px-1 py-1">
+	<main class="mx-auto max-w px-1 py-2">
 		<form class="flex border px-1 py-1" method="post" action="signupAction.jsp">
 			<div>
 				<label class="small" for="userEmail">Email</label>
@@ -36,5 +36,6 @@
 			<input class="btn" type="submit" value="Sign Up">
 		</form>
 	</main>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

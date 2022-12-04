@@ -99,7 +99,7 @@ form {
   max-width: 60rem;
 
   padding-inline: 1rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   margin-inline: auto;
 }
 
@@ -144,11 +144,15 @@ ul {
 
 .btn {
   /* grid-column: 1 / -1; */
+  display: flex;
   padding-inline: 1rem;
   padding-block: 1rem;
 
   border: 3px solid var(--neutral-700);
   border-radius: 0.5rem;
+  
+  align-items: center;
+  justify-content: center;
 
   /* width: 100%; */
   background-color: var(--primary-500);
@@ -330,12 +334,12 @@ ul {
 }
 
 .footer-p {
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
 }
 
 .footer-icon {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
 
   align-items: flex-end;
 }
@@ -346,7 +350,7 @@ ul {
 }
 
 .footer-input {
-  max-width: 20rem;
+  max-width: 18rem;
   width: 90%;
 
   padding-inline: 1rem;
@@ -369,14 +373,13 @@ ul {
   max-width: 60rem;
   width: 100%;
 
-  margin-top: 1rem;
   margin-inline: auto;
 }
 
 :is(.grid-3) .head {
   font-weight: 900;
   border-bottom: 3px solid var(--neutral-700);
-  background-color: var(--primary-600);
+  background-color: var(--primary-500);
   color: var(--neutral-50);
   text-align: center;
 }
@@ -418,10 +421,9 @@ ul {
 
 .bus-grid {
   display: grid;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
   gap: 1rem;
 
-  margin-block: 1rem;
   padding: 1rem;
 
   border-radius: 0.5rem;
@@ -434,6 +436,8 @@ ul {
   display: grid;
   place-items: center;
   margin: 0;
+  
+  font-weight: 800;
 }
 
 .bus-grid input + *::before {
@@ -446,6 +450,21 @@ ul {
   width: 3rem;
   height: 3rem;
   accent-color: var(--primary-400);
+}
+
+:is(
+	.item:nth-child(34),
+	.item:nth-child(35),
+	.item:nth-child(36),
+	.item:nth-child(37),
+	.item:nth-child(38),
+	.item:nth-child(39),
+	.item:nth-child(40),
+	.item:nth-child(41),
+	.item:nth-child(42),
+	.item:nth-child(43),
+	.item:nth-child(44)) {
+	margin-top: 2rem;
 }
 
 div .item.date {
@@ -464,13 +483,21 @@ div .item.date {
 
   max-width: 60rem;
 
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   margin-inline: auto;
 }
 
 .flex-col {
   display: flex;
   flex-direction: column;
+}
+
+.mx-auto {
+	margin-inline: auto;
+}
+
+.max-w {
+	max-width: 60em;
 }
 
 .px-1 {

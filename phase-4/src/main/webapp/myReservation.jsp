@@ -12,12 +12,12 @@
 <head>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="style.css" />
-<title>My Reservation :: UNI-BUS</title>
+<title>My Reservation :: UniBus</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
 <h1 class="px-1">My Reservations</h1>
-<main class="px-1">
+<main class="mx-auto max-w px-1 py-2">
 	<%
 		String userAID = null;
 		if(session.getAttribute("userAid") != null){
@@ -30,10 +30,10 @@
 		
 		for(int i = 0; i < reserveList.size(); i++){
 	%>
-		<div class="flex border" style="margin-top: 1.5rem;">
-			<h2 class="bg-primary px-1 py-05"> 🚐 Trip on <%= reserveList.get(i).getDdate().substring(0, 10) %></h2>
+		<div class="flex border" style="margin-bottom: 1rem;">
+			<h2 class="bg-primary px-1 py-05"> 🚐&nbsp; Trip on <%= reserveList.get(i).getDdate().substring(0, 10) %></h2>
 			
-			<div class="grid-3 px-1">
+			<div class="grid-3 px-1 py-1 gap-1">
 				<div>
 					<h3>Bus ID</h3>
 					<p class="emphasize"><%= reserveList.get(i).getBid() %></p>
@@ -46,9 +46,7 @@
 					<h3>Reserved Age</h3>
 					<p class="emphasize"><%= reserveList.get(i).getAge() %></p>
 				</div>
-			</div>
-			
-			<div class="grid-3 px-1">
+
 				<div>
 					<h3>Departing Time</h3>
 					<p class="emphasize"><%= reserveList.get(i).getDtime().substring(11, 16) %></p>
@@ -61,9 +59,7 @@
 					<h3>Departing Platform</h3>
 					<p class="emphasize">No. <%= reserveList.get(i).getDplatform() %></p>
 				</div>
-			</div>
-			
-			<div class="grid-3 px-1">
+
 				<div>
 					<h3>Arriving Time</h3>
 					<p class="emphasize"><%= reserveList.get(i).getAtime().substring(11, 16) %></p>
@@ -78,7 +74,7 @@
 				</div>
 			</div>
 			
-			<div style="display: flex; justify-content: flex-end;" class="px-1 py-1"><a class="btn-sm" href="cancelAction.jsp?rsid=<%= reserveList.get(i).getSid() %>&rtid=<%= reserveList.get(i).getTid() %>&rage=<%= reserveList.get(i).getAge() %>&raid=<%= userAID %>">Cancel Reservation</a></div>
+			<div style="display: flex; justify-content: flex-end; padding-top: 0;" class="px-1 py-1"><a class="btn-sm" href="cancelAction.jsp?rsid=<%= reserveList.get(i).getSid() %>&rtid=<%= reserveList.get(i).getTid() %>&rage=<%= reserveList.get(i).getAge() %>&raid=<%= userAID %>">Cancel Reservation</a></div>
 		</div>
 	<%
 		}	

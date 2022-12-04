@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cancel Reservation :: UNI-BUS</title>
+<title>Cancel Reservation :: UniBus</title>
 </head>
 <body>
 	<%		
@@ -31,22 +31,22 @@
 		if(result == 1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('complete cancel')");
+			script.println("alert('Cancelled Successfully')");
 			script.println("location.href = 'myReservation.jsp'");
 			script.println("</script>");
 		}
 		else if (result == -1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('server error. fail to cancel')");
+			script.println("alert('Server Error. Fail to Cancel')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if (result == 2){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('the reservation has been already canceled')");
-			script.println("history.back()");
+			script.println("alert('The reservation has already been cancelled')");
+			script.println("location.href = 'myReservation.jsp'");
 			script.println("</script>");
 		}
 

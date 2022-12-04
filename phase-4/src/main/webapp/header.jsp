@@ -17,14 +17,14 @@
     int point = userDAO.getPoint(userAID);
    %>
    <nav class="nav">
-   	<a class="main" href="main.jsp">UNI-BUS</a>
+   	<a class="main" href="main.jsp">UniBus</a>
 	<ul>
 		<li class="auth">
-			<a href="./admin/admin.jsp">Administrator</a> <% if(userAID == null){
+			<!-- <a href="./admin/admin.jsp">Administrator</a> --> <% if(userAID == null){
 			%>
 			<a href="login.jsp">Sign In</a>
 			<a href="signup.jsp">Sign Up</a> <% } else{ %>
-			<p><%= point %> pts</p>
+			<p><b><%= point %></b> pts</p>
 			<a href="myReservation.jsp">My Reservations</a>
 		  	<a href="logoutAction.jsp">Sign Out</a>
 		   <% } %>

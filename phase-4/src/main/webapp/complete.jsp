@@ -32,28 +32,28 @@
 		if(result == -1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('server error')");
+			script.println("alert('Server Error')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if(result == 0){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('no money.')");
+			script.println("alert('Not enough points to book.')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}		
 		else if(result == 2){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('the set has been already reserved')");
+			script.println("alert('The seat has already been reserved')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if(result == 1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('success')");
+			script.println("alert('Reserved Successfully')");
 			script.println("location.href = 'myReservation.jsp'");
 			script.println("</script>");
 		}

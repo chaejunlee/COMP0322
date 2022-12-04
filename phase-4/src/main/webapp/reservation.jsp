@@ -15,7 +15,7 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="style.css" />
-<title>Reservation :: UNI-BUS</title>
+<title>Reservation :: UniBus</title>
 </head>
 <body>
     <jsp:include page="header.jsp" />
@@ -26,9 +26,9 @@
 		String ddate = request.getParameter("ddate");
 		String dtime = request.getParameter("dtime");
 	%>
-	<h1>Available Seats</h1>
+	<h1 class="px-1">Available Seats</h1>
 	<form method="get" action="reservationAction.jsp">
-		<div class="row-span grid-3">
+		<div class="row-span grid-3 py-1">
 			<div>
 				<label for="adult">Adult <span class="label-sm">(Over age 18)</span></label>
 				<input type="number" min="0"  id = "adult" name = "adult" value="0">
@@ -93,7 +93,7 @@
 				out.println("<div class=\"head\">" + row[i] + "</div>");
 			
 			for(int a = 0; a <= 3; a++) {
-				out.println("<div class=\"head\">" + (a + 1) + "</div>");
+				out.println("<div class=\"head item\">" + (a + 1) + "</div>");
 					
 			    for(int b = 0; b < 10; b++) {
 					String seat = row[b] + Integer.toString(a + 1);
@@ -119,7 +119,9 @@
 		<input type="hidden" id="arrive" name="arrive" value=<%= arrive %>>
 		<input type="hidden" id="ddate" name="ddate" value=<%= ddate %>>
 		<input type="hidden" id="dtime" name="dtime" value=<%= dtime %>>
-					
-		<input class="row-span btn" type="submit" value="Confirm">
+			
+		<div class="py-1 row-span">
+			<input class="btn" type="submit" value="Confirm">
+		</div>		
 	</form>
 </html>

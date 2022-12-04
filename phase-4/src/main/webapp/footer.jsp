@@ -8,20 +8,20 @@
 
     <div class="footer-grid">
       <div>
-        <div class="footer-sub">Services</div>
+        <div class="footer-sub">SERVICE</div>
         <p>Find a Bus</p>
         <p>Book</p>
         <p>Cancel</p>
         <p>Refund</p>
       </div>
       <div>
-        <div class="footer-sub">About</div>
+        <div class="footer-sub">ABOUT</div>
         <p>About UniBus</p>
         <p>Team</p>
         <p>Careers</p>
       </div>
       <div>
-        <div class="footer-sub">Legal</div>
+        <div class="footer-sub">LEGAL</div>
         <p>Terms & Conditions</p>
         <p>Privacy Policy</p>
         <p>Terms of Use</p>

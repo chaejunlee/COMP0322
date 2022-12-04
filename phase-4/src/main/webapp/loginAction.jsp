@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sign In :: UNI-BUS</title>
+<title>Sign In :: UniBus</title>
 </head>
 <body>
 	<%
@@ -22,7 +22,7 @@
 		if(userAID != null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('이미 로그인이 되어있습니다.')");
+			script.println("alert('You are already signed in.')");
 			script.println("</script>");
 		}
 	
@@ -39,21 +39,21 @@
 		else if (result == 0){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('비밀번호가 틀립니다.')");
+			script.println("alert('Wrong Password.')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if (result == -1){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('존재하지 않는 아이디입니다..')");
+			script.println("alert('No such ID')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
 		else if (result == -2){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('데이터베이스 오류가 발생하였습니다.')");
+			script.println("alert('Database Error.')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
