@@ -26,7 +26,7 @@
 		if(userAID != null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('You are already signed in.')");
+			script.println("alert('Ya has iniciado sesión.')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
@@ -35,7 +35,7 @@
 			|| user.getUserFname()==null || user.getUserLname()==null|| user.getUserPhone()==null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('Some fields has not been entered')");
+			script.println("alert('Algunos elementos no se han introducido.')");
 			script.println("history.back()");
 			script.println("</script>");
 		}
@@ -46,7 +46,7 @@
 			if (result == -1){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('Duplicate emails.')");
+				script.println("alert('Correos duplicados.')");
 				script.println("history.back()");
 				script.println("</script>");
 			}

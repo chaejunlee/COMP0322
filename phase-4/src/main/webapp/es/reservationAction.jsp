@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css" />
-<title>Reservation :: UniBus</title>
+<title>Detalles de Reserva :: UniBus</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -30,7 +30,7 @@
 		if(userAID == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('Please Sign In First!')");
+			script.println("alert('¡Inicia sesión primero!')");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
@@ -42,47 +42,47 @@
 		ReservationInfo info = reserveDAO.getReserve(reserveinfo, rsid, age);
 	%>
 
-	<h1 class="px-1">Reservation Details</h1>
+	<h1 class="px-1">Detalles de Reserva</h1>
 	<main class="mx-auto max-w px-1 py-1">
 	<div class="border flex">
-		<div class="bg-primary px-1 py-05"><h2>🎫 INFO</h2></div>
+		<div class="bg-primary px-1 py-05"><h2>🎫 Información</h2></div>
 		<div class="grid-3 px-1 py-1 gap-1">
 			<div>
-				<h3>date</h3>
+				<h3>fecha</h3>
 				<div class="emphasize"><%= info.getDdate() %></div>
 			</div>
 			
 			<div>
-				<h3>depart time</h3>
+				<h3>hora de salida</h3>
 				<div class="emphasize"><%= info.getDtime() %></div>
 			</div>
 			
 			<div>
-				<h3>depart station</h3>
+				<h3>estación de salida</h3>
 				<div class="emphasize"><%= info.getDepart() %></div>
 			</div>
 			<div>
-				<h3>arrive station</h3>
+				<h3>estación de llegada</h3>
 				<div class="emphasize"><%= info.getArrive() %></div>
 			</div>
 			
 			<div>
-				<h3>seat number</h3>
+				<h3>número de asiento</h3>
 				<div class="emphasize"><%= info.getSid() %></div>
 			</div>
 			
 			<div>
-				<h3>price</h3>
+				<h3>precio</h3>
 				<div class="emphasize"><%= info.getPrice() %></div>
 			</div>
 		</div>
 	</div>
 	<div class="grid-2 gap-1 py-1">
 		<div class="btn blank">
-			<a href="reservation.jsp?rtid = <%= info.getTid() %>&depart=<%= info.getDepart() %>&arrive=<%= info.getArrive() %>&ddate=<%= info.getDdate() %>&dtime=<%= info.getDtime() %>" style="width: auto; color: inherit; text-decoration: none;" value="back">Back to Seats</a>	
+			<a href="reservation.jsp?rtid = <%= info.getTid() %>&depart=<%= info.getDepart() %>&arrive=<%= info.getArrive() %>&ddate=<%= info.getDdate() %>&dtime=<%= info.getDtime() %>" style="width: auto; color: inherit; text-decoration: none;" value="back">Volver</a>	
 		</div>
 		<div class="btn">
-			<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" style="width:auto; color: inherit; text-decoration: none;" value="reserve">Reserve</a>
+			<a href="complete.jsp?fee=<%= info.getPrice() %>&rtid=<%= info.getTid() %>&rsid=<%= info.getSid() %>&rage=<%= info.getAge() %>" style="width:auto; color: inherit; text-decoration: none;" value="reserve">Reservar</a>
 		</div>
 	</div>
 	</main>
