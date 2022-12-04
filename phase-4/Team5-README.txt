@@ -14,8 +14,8 @@
 
 - 실행 후 테스트할 수 있는 아이디
     1. 상단의 Sign In 클릭
-    2. ID : test@example.net
-        Password : test
+    2. ID : test1@example.net / test2@example.net
+        Password : test / test
     3.  Sign In 클릭
 
 ### 기능 설명
@@ -28,11 +28,12 @@
 
 - 버스 시간표 검색 (src/main/webapp/main.jsp)
     설정한 날짜의 입력한 시간 이후의 버스 정보를 찾는 페이지로 이동
+    아래는 22년 12월 25일 동대구에서 가평으로 가는 07:00 이후의 모든 버스 시간표 출력
     > DATE : 2022/12/25
     > DEPARTURE : Dondaegu
     > TIME : 07:00
     > ARRIVAL : Gapyeong
-
+	
 - 버스 시간 정보 (src/main/webapp/BUS.jsp)
     - 메인 페이지에서 설정한 값에 해당하는 버스 시간표 출력
     - Details의 Show를 누르면 해당 시간의 버스 상세 정보 출력
