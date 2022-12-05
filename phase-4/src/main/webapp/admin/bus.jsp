@@ -8,6 +8,7 @@
 
 <%
 int column = 3;
+String src = request.getParameter("src");
 String bid = request.getParameter("bid");
 String bcompany = request.getParameter("bcompany");
 String btype = request.getParameter("btype");
@@ -28,24 +29,31 @@ int num = 0;
 
 Class.forName("oracle.jdbc.driver.OracleDriver");
 conn = DriverManager.getConnection(url, user, pass);
-%>
-
-<%
-sql = "SELECT * FROM BUS WHERE 1=1 ";
-if (bid != "") {
-	sql += "AND BID = '" + bid + "' ";
-
+if (src.equals("select")) {
+	sql = "SELECT * FROM BUS WHERE 1=1 ";
+	if (bid != "")
+		sql += "AND BID = '" + bid + "' ";
+	if (bcompany != "")
+		sql += "AND BCOMPANY = '" + bcompany + "' ";
+	if (btype != "")
+		sql += "AND BTYPE = '" + btype + "' ";
+} else if (src.equals("insert")) {
+	if (bid != "" || bcompany != "" || btype != "") {
+		sql = "INSERT INTO BUS VALUES(";
+		sql += bid + ", '" + bcompany + "', '" + btype;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE BUS WHERE 1=1  ";
+	if (bid != "")
+		sql += "AND BID = '" + bid + "' ";
+	if (bcompany != "")
+		sql += "AND BCOMPANY = '" + bcompany + "' ";
+	if (btype != "")
+		sql += "AND BTYPE = '" + btype + "' ";
 }
-if (bcompany != "") {
-	sql += "AND BCOMPANY = '" + bcompany + "' ";
 
-}
-if (btype != "") {
-	sql += "AND BTYPE = '" + btype + "' ";
-
-}
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
+//System.out.println(sql);
 %>
 
 
@@ -57,6 +65,12 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+		<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
 		<table border="1">
 			<thead>
 				<tr>
@@ -67,21 +81,58 @@ rs = pstmt.executeQuery();
 			</thead>
 			<tbody>
 
-				<% while (rs.next()) {
+				<%
+				while (rs.next()) {
 					num++;
 				%>
-				
+
 				<tr>
-					
-					<% for (int i = 1; i <= column; i++) {
+
+					<%
+					for (int i = 1; i <= column; i++) {
 					%>
 					<td><%=rs.getString(i)%></td>
-					<%} %>
+					<%
+					}
+					%>
 				</tr>
-				<%} %>
+				<%
+				}
+				%>
 			</tbody>
 		</table>
-		<%=num %>개
+		<%=num%>개
+
+
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (bid != "" || bcompany != "" || btype != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+
+
+		<%=sql%>
+
+
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
+
+
 	</div>
 </body>
 </html>

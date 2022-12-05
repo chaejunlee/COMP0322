@@ -8,6 +8,7 @@
 
 <%
 int column = 5;
+String src = request.getParameter("src");
 String rid = request.getParameter("rid");
 String dstation = request.getParameter("dstation");
 String astation = request.getParameter("astation");
@@ -34,6 +35,7 @@ conn = DriverManager.getConnection(url, user, pass);
 %>
 
 <%
+if (src.equals("select")) {
 sql = "SELECT * FROM ROUTE WHERE 1=1 ";
 if (rid != "") 
 	sql += "AND rid = '" + rid + "' ";
@@ -49,10 +51,26 @@ if (dplatform != "")
 
 if (aplatform != "")
 	sql += "AND dplatform = '" + aplatform + "' ";
-
-// System.out.println(sql);
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
+} else if (src.equals("insert")) {
+	if (rid != "" || dstation != "" || astation != "" || dplatform != "" || aplatform != "") {
+		sql = "INSERT INTO ROUTE VALUES(";
+		sql += "'" + rid + "', '" + dstation + "', '" + astation + "', '" + dplatform + "', '" + aplatform;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE ROUTE WHERE 1=1  ";
+	if (rid != "")
+		sql += "AND DBID = '" + rid + "' ";
+	if (dstation != "")
+		sql += "AND dstation = '" + dstation + "' ";
+	if (astation != "")
+		sql += "AND astation = '" + astation + "' ";
+	if (dplatform != "")
+		sql += "AND dplatform = '" + dplatform + "' ";
+	if (aplatform != "")
+		sql += "AND aplatform = '" + aplatform + "' ";
+}
+ System.out.println(sql);
 %>
 
 <!DOCTYPE html>
@@ -63,6 +81,13 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -90,6 +115,29 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (rid != "" || dstation != "" || astation != "" || dplatform != "" || aplatform != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+		<%=sql%>
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

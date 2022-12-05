@@ -7,7 +7,8 @@
 <%@ page import="config.Properties"%>
 
 <%
-int column = 3;
+int column = 4;
+String src = request.getParameter("src");
 String raid = request.getParameter("raid");
 String rsid = request.getParameter("rsid");
 String rtid = request.getParameter("rtid");
@@ -58,12 +59,14 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<% if (src.equals("select")) { %>
 		<table border="1">
 			<thead>
 				<tr>
 					<th>raid</th>
 					<th>rsid</th>
 					<th>rtid</th>
+					<th>rage</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,6 +86,7 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+<% } %>
 	</div>
 </body>
 </html>

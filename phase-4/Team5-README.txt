@@ -1,6 +1,18 @@
 # Team5-README.txt
 
 ### 실행 방법
+- 파일 설정 방법
+    1. Eclipse 실행
+    2. File -> New -> Dynamic Web Project
+    3. Project name : Team5-phase4
+       Target runtime : Apache Tomcat
+    4. 압축 파일 안 src 폴더 안의 .java 및 .jsp 파일을 해당 프로젝트 src 안에 디렉토리 파일 위치에 맞게 복사
+        [project]/src/main/java 안에 *.java
+        [project]/src/main/webapp 안에 Team5-phase-4/src/main/webapp/admin/*,
+                                       Team5-phase-4/src/main/webapp/*.jsp,
+                                       Team5-phase-4/src/main/webapp/style.css,
+                                       Team5-phase-4/src/main/webapp/es/*
+
 - /src/main/java/config/Properties.java
     해당 파일을 사용자 DB 정보에 맞춰 변경하면 사용자 DB에 접속할 수 있습니다.
     > serverIP = "IP" (ex. "localhost")

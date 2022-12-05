@@ -9,10 +9,9 @@
 <body>
 	<div>
 		<ul>
-			<li><a href="../main.jsp">main page</a>
-			<li><a href="./select.jsp">Table VIEW</a>
-			<li><a href="./insert.jsp">Table INSERT</a>
-			<li><a href="./delete.jsp">Table DELETE</a>
+			<li><a href="./main.jsp">main page</a>
+			<li><a href="./admin/select.jsp">Table SELECT</a>
+			<li><a href="./admin/insert.jsp">Table INSERT</a>
 			</ul>
 			</div>
 </body>

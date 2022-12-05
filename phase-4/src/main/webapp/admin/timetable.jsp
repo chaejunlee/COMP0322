@@ -8,13 +8,23 @@
 
 <%
 int column = 6;
+String src = request.getParameter("src");
 String tid = request.getParameter("tid");
-String tdate = request.getParameter("tdate");
-String depart_time = request.getParameter("depart_time");
-String arrive_time = request.getParameter("arrive_time");
 String tbid = request.getParameter("tbid");
 String trid = request.getParameter("trid");
 
+String tdate = request.getParameter("tdate");
+String depart_time = request.getParameter("depart_time");
+String arrive_time = request.getParameter("arrive_time");
+
+
+String tdate_yyyy = request.getParameter("tdate_yyyy");
+String tdate_mm = request.getParameter("tdate_mm");
+String tdate_dd = request.getParameter("tdate_dd");
+String depart_hh24 = request.getParameter("depart_hh24");
+String depart_mi = request.getParameter("depart_mi");
+String arrive_hh24 = request.getParameter("arrive_hh24");
+String arrive_mi = request.getParameter("arrive_mi");
 
 Connection conn = null;
 PreparedStatement pstmt = null;
@@ -35,6 +45,7 @@ conn = DriverManager.getConnection(url, user, pass);
 %>
 
 <%
+if (src.equals("select")) {
 sql = "SELECT * FROM Timetable WHERE 1=1 ";
 if (tid != "") 
 	sql += "AND tid = '" + tid + "' ";
@@ -53,10 +64,39 @@ if (tbid != "")
 
 if (trid != "")
 	sql += "AND trid = '" + trid + "' ";
+} else if (src.equals("insert")) {
+	if (tid != "" || tdate_yyyy != "" || tdate_mm != "" || tdate_dd != "" ||
+	depart_hh24 != "" || depart_mi != "" || 
+	arrive_hh24 != "" || arrive_mi != "" ||
+	tbid != "" || trid != "") {
+		sql = "INSERT INTO TIMETABLE VALUES(";
+		sql += "'" + tid + 
+		"', to_date('" + tdate_yyyy + "-" + tdate_mm + "-" + tdate_dd + " "+ "00:00:00" +
+		"', 'yyyy-mm-dd hh24:mi:ss')"+ 
+		", to_date('" + tdate_yyyy + "-" + tdate_mm + "-" + tdate_dd + " " + depart_hh24 + ":" + depart_mi + ":00"+ 
+		"', 'yyyy-mm-dd HH24:MI:ss')"+
+		", to_date('" + tdate_yyyy + "-" + tdate_mm + "-" + tdate_dd + " " + arrive_hh24 + ":" + arrive_mi + ":00"+ 
+		"', 'yyyy-mm-dd HH24:MI:ss'), '" +
+		tbid + "', '" +trid;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE TIMETABLE WHERE 1=1  ";
+	if (tid != "")
+		sql += "AND DBID = '" + tid + "' ";
+	if (tdate != "")
+		sql += "AND tdate = '" + tdate + "' ";
+	if (depart_time != "")
+		sql += "AND depart_time = '" + depart_time + "' ";
+	if (arrive_time != "")
+		sql += "AND arrive_time = '" + arrive_time + "' ";
+	if (tbid != "")
+		sql += "AND tbid = '" + tbid + "' ";
+	if (trid != "")
+		sql += "AND trid = '" + trid + "' ";
+}
+ System.out.println(sql);
 
-// System.out.println(sql);
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
 %>
 
 <!DOCTYPE html>
@@ -67,6 +107,13 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -95,6 +142,32 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (tid != "" || tdate_yyyy != "" || tdate_mm != "" || tdate_dd != "" ||
+	depart_hh24 != "" || depart_mi != "" || 
+	arrive_hh24 != "" || arrive_mi != "" ||
+	tbid != "" || trid != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+		<%=sql%>
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>
