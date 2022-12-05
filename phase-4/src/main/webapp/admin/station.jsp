@@ -8,6 +8,7 @@
 
 <%
 int column = 4;
+String src = request.getParameter("src");
 String stname = request.getParameter("stname");
 String totalplatform = request.getParameter("totalplatform");
 String address = request.getParameter("address");
@@ -30,9 +31,8 @@ int num = 0;
 
 Class.forName("oracle.jdbc.driver.OracleDriver");
 conn = DriverManager.getConnection(url, user, pass);
-%>
 
-<%
+if (src.equals("select")) {
 sql = "SELECT * FROM STATION WHERE 1=1 ";
 if (stname != "") 
 	sql += "AND stname = '" + stname + "' ";
@@ -45,11 +45,25 @@ if (address != "")
 
 if (zipcode != "")
 	sql += "AND zipcode = '" + zipcode + "' ";
+} else if (src.equals("insert")) {
+	if (stname != "" || totalplatform != "" || address != "" || zipcode != "") {
+		sql = "INSERT INTO STATION VALUES(";
+		sql += "'" + stname + "', '" + totalplatform + "', '" + address + "', '" + zipcode;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE STATION WHERE 1=1  ";
+	if (stname != "")
+		sql += "AND DBID = '" + stname + "' ";
+	if (totalplatform != "")
+		sql += "AND totalplatform = '" + totalplatform + "' ";
+	if (address != "")
+		sql += "AND address = '" + address + "' ";
+	if (zipcode != "")
+		sql += "AND zipcode = '" + zipcode + "' ";
+}
 
-
-// System.out.println(sql);
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
+System.out.println(sql);
 %>
 
 <!DOCTYPE html>
@@ -60,6 +74,13 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -86,6 +107,29 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (stname != "" || totalplatform != "" || address != "" || zipcode != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+		<%=sql%>
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

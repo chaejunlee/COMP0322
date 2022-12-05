@@ -8,6 +8,7 @@
 
 <%
 int column = 4;
+String src = request.getParameter("src");
 String age = request.getParameter("age");
 String bustype = request.getParameter("bustype");
 String fee = request.getParameter("fee");
@@ -33,6 +34,7 @@ conn = DriverManager.getConnection(url, user, pass);
 %>
 
 <%
+if (src.equals("select")) {
 sql = "SELECT * FROM PRICE WHERE 1=1 ";
 if (age != "") 
 	sql += "AND age = '" + age + "' ";
@@ -45,11 +47,26 @@ if (fee != "")
 
 if (prid != "")
 	sql += "AND prid = '" + prid + "' ";
+} else if (src.equals("insert")) {
+	if (age != "" || bustype != "" || fee != "" || prid != "") {
+		sql = "INSERT INTO price VALUES(";
+		sql += "'" + age + "', '" + bustype + "', '" + fee + "', '" + prid;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE PRICE WHERE 1=1  ";
+	if (age != "")
+		sql += "AND DBID = '" + age + "' ";
+	if (bustype != "")
+		sql += "AND bustype = '" + bustype + "' ";
+	if (fee != "")
+		sql += "AND fee = '" + fee + "' ";
+	if (prid != "")
+		sql += "AND prid = '" + prid + "' ";
+}
 
+ System.out.println(sql);
 
-// System.out.println(sql);
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
 %>
 
 <!DOCTYPE html>
@@ -60,6 +77,13 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -86,6 +110,29 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (age != "" || bustype != "" || fee != "" || prid != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+		<%=sql%>
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

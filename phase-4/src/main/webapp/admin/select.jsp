@@ -36,19 +36,19 @@ conn = DriverManager.getConnection(url, user, pass);
 <html>
 
 <head>
-<meta charset="EUC-KR">
-<title>Admin Page</title>
+<meta charset="UTF-8">
+<title>Admin Page: select</title>
 </head>
 
 <body>
 	<div>
 		<b>BUS</b>
-		<form method="post" action="./bus.jsp">
+		<form method="post" action="./bus.jsp?src=select">
 			<div>
 				Bid: <select id="bid" name="bid">
 					<option value="" selected></option>
 					<%
-					sql = "select BID from bus group by bid order by bid";
+					sql = "select distinct BID from bus group by bid order by bid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -64,7 +64,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> Bcompany: <select id="bcompany" name="bcompany">
 					<option value="" selected></option>
 					<%
-					sql = "select BCOMPANY from bus group by bcompany order by bcompany";
+					sql = "select distinct BCOMPANY from bus group by bcompany order by bcompany";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -80,7 +80,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> Btype: <select id="btype" name="btype">
 					<option value="" selected></option>
 					<%
-					sql = "select BTYPE from bus group by btype order by btype";
+					sql = "select distinct BTYPE from bus group by btype order by btype";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -102,12 +102,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>DRIVES</b>
-		<form method="post" action="./drives.jsp">
+		<form method="post" action="./drives.jsp?src=select">
 			<div>
 				Dbid: <select id="dbid" name="dbid">
 					<option value="" selected></option>
 					<%
-					sql = "select dbid from drives group by dbid order by dbid";
+					sql = "select distinct dbid from drives group by dbid order by dbid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -123,7 +123,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> Dssn: <select id="dssn" name="dssn">
 					<option value="" selected></option>
 					<%
-					sql = "select dssn from drives group by dssn order by dssn";
+					sql = "select distinct dssn from drives group by dssn order by dssn";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -139,7 +139,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> Hours: <select id="hours" name="hours">
 					<option value="" selected></option>
 					<%
-					sql = "select hours from drives group by hours order by hours";
+					sql = "select distinct hours from drives group by hours order by hours";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -161,12 +161,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>EMPLOYEE</b>
-		<form method="post" action="./employee.jsp">
+		<form method="post" action="./employee.jsp?src=select">
 			<div>
 				ssn: <select id="ssn" name="ssn">
 					<option value="" selected></option>
 					<%
-					sql = "select ssn from employee group by ssn order by ssn";
+					sql = "select distinct ssn from employee group by ssn order by ssn";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -182,7 +182,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> fname: <select id="fname" name="fname">
 					<option value="" selected></option>
 					<%
-					sql = "select fname from employee group by fname order by fname";
+					sql = "select distinct fname from employee group by fname order by fname";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -198,7 +198,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> lname: <select id="lname" name="lname">
 					<option value="" selected></option>
 					<%
-					sql = "select lname from employee group by lname order by lname";
+					sql = "select distinct lname from employee group by lname order by lname";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -214,7 +214,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> salary: <select id="salary" name="salary">
 					<option value="" selected></option>
 					<%
-					sql = "select salary from employee group by salary order by salary";
+					sql = "select distinct salary from employee group by salary order by salary";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -230,7 +230,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> esname: <select id="esname" name="esname">
 					<option value="" selected></option>
 					<%
-					sql = "select esname from employee group by esname order by esname";
+					sql = "select distinct esname from employee group by esname order by esname";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -252,12 +252,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>price</b>
-		<form method="post" action="./price.jsp">
+		<form method="post" action="./price.jsp?src=select">
 			<div>
 				age: <select id="age" name="age">
 					<option value="" selected></option>
 					<%
-					sql = "select age from price group by age order by age";
+					sql = "select distinct age from price group by age order by age";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -273,7 +273,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> bustype: <select id="bustype" name="bustype">
 					<option value="" selected></option>
 					<%
-					sql = "select bustype from price group by bustype order by bustype";
+					sql = "select distinct bustype from price group by bustype order by bustype";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -289,7 +289,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> fee: <select id="fee" name="fee">
 					<option value="" selected></option>
 					<%
-					sql = "select fee from price group by fee order by fee";
+					sql = "select distinct fee from price group by fee order by fee";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -305,7 +305,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> prid: <select id="prid" name="prid">
 					<option value="" selected></option>
 					<%
-					sql = "select prid from price group by prid order by prid";
+					sql = "select distinct prid from price group by prid order by prid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -329,12 +329,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>reservation</b>
-		<form method="post" action="./reservation.jsp">
+		<form method="post" action="./reservation.jsp?src=select">
 			<div>
 				raid: <select id="raid" name="raid">
 					<option value="" selected></option>
 					<%
-					sql = "select raid from reservation group by raid order by raid";
+					sql = "select distinct raid from reservation group by raid order by raid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -350,7 +350,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> rsid: <select id="rsid" name="rsid">
 					<option value="" selected></option>
 					<%
-					sql = "select rsid from reservation group by rsid order by rsid";
+					sql = "select distinct rsid from reservation group by rsid order by rsid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -366,7 +366,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> rtid: <select id="rtid" name="rtid">
 					<option value="" selected></option>
 					<%
-					sql = "select rtid from reservation group by rtid order by rtid";
+					sql = "select distinct rtid from reservation group by rtid order by rtid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -391,12 +391,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>route</b>
-		<form method="post" action="./route.jsp">
+		<form method="post" action="./route.jsp?src=select">
 			<div>
 				rid: <select id="rid" name="rid">
 					<option value="" selected></option>
 					<%
-					sql = "select rid from route group by rid order by rid";
+					sql = "select distinct rid from route group by rid order by rid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -412,7 +412,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> dstation: <select id="dstation" name="dstation">
 					<option value="" selected></option>
 					<%
-					sql = "select dstation from route group by dstation order by dstation";
+					sql = "select distinct dstation from route group by dstation order by dstation";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -428,7 +428,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> astation: <select id="astation" name="astation">
 					<option value="" selected></option>
 					<%
-					sql = "select astation from route group by astation order by astation";
+					sql = "select distinct astation from route group by astation order by astation";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -444,7 +444,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> dplatform: <select id="dplatform" name="dplatform">
 					<option value="" selected></option>
 					<%
-					sql = "select dplatform from route group by dplatform order by dplatform";
+					sql = "select distinct dplatform from route group by dplatform order by dplatform";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -460,7 +460,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> aplatform: <select id="aplatform" name="aplatform">
 					<option value="" selected></option>
 					<%
-					sql = "select aplatform from route group by aplatform order by aplatform";
+					sql = "select distinct aplatform from route group by aplatform order by aplatform";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -484,12 +484,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>station</b>
-		<form method="post" action="./station.jsp">
+		<form method="post" action="./station.jsp?src=select">
 			<div>
 				stname: <select id="stname" name="stname">
 					<option value="" selected></option>
 					<%
-					sql = "select stname from station group by stname order by stname";
+					sql = "select distinct stname from station group by stname order by stname";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -505,7 +505,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> totalplatform: <select id="totalplatform" name="totalplatform">
 					<option value="" selected></option>
 					<%
-					sql = "select totalplatform from station group by totalplatform order by totalplatform";
+					sql = "select distinct totalplatform from station group by totalplatform order by totalplatform";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -522,7 +522,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> address: <select id="address" name="address">
 					<option value="" selected></option>
 					<%
-					sql = "select address from station group by address order by address";
+					sql = "select distinct address from station group by address order by address";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -538,7 +538,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> zipcode: <select id="zipcode" name="zipcode">
 					<option value="" selected></option>
 					<%
-					sql = "select zipcode from station group by zipcode order by zipcode";
+					sql = "select distinct zipcode from station group by zipcode order by zipcode";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -564,12 +564,12 @@ conn = DriverManager.getConnection(url, user, pass);
 	</div>
 	<div>
 		<b>timetable</b>
-		<form method="post" action="./timetable.jsp">
+		<form method="post" action="./timetable.jsp?src=select">
 			<div>
 				tid: <select id="tid" name="tid">
 					<option value="" selected></option>
 					<%
-					sql = "select tid from timetable group by tid order by tid";
+					sql = "select distinct tid from timetable group by tid order by tid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -585,7 +585,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> tdate: <select id="tdate" name="tdate">
 					<option value="" selected></option>
 					<%
-					sql = "select tdate from timetable group by tdate order by tdate";
+					sql = "select distinct tdate from timetable group by tdate order by tdate";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -601,7 +601,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> depart_time: <select id="depart_time" name="depart_time">
 					<option value="" selected></option>
 					<%
-					sql = "select depart_time from timetable group by depart_time order by depart_time";
+					sql = "select distinct depart_time from timetable group by depart_time order by depart_time";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -617,7 +617,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> arrive_time: <select id="arrive_time" name="arrive_time">
 					<option value="" selected></option>
 					<%
-					sql = "select arrive_time from timetable group by arrive_time order by arrive_time";
+					sql = "select distinct arrive_time from timetable group by arrive_time order by arrive_time";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -633,7 +633,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> tbid: <select id="tbid" name="tbid">
 					<option value="" selected></option>
 					<%
-					sql = "select tbid from timetable group by tbid order by tbid";
+					sql = "select distinct tbid from timetable group by tbid order by tbid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {
@@ -649,7 +649,7 @@ conn = DriverManager.getConnection(url, user, pass);
 				</select> trid: <select id="trid" name="trid">
 					<option value="" selected></option>
 					<%
-					sql = "select trid from timetable group by trid order by trid";
+					sql = "select distinct trid from timetable group by trid order by trid";
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while (rs.next()) {

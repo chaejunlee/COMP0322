@@ -8,6 +8,7 @@
 
 <%
 int column = 5;
+String src = request.getParameter("src");
 String ssn = request.getParameter("ssn");
 String fname = request.getParameter("fname");
 String lname = request.getParameter("lname");
@@ -34,6 +35,7 @@ conn = DriverManager.getConnection(url, user, pass);
 %>
 
 <%
+if (src.equals("select")) {
 sql = "SELECT * FROM EMPLOYEE WHERE 1=1 ";
 if (ssn != "") 
 	sql += "AND ssn = '" + ssn + "' ";
@@ -49,10 +51,27 @@ if (salary != "")
 
 if (esname != "")
 	sql += "AND salary = '" + esname + "' ";
+} else if (src.equals("insert")) {
+	if (ssn != "" || fname != "" || lname != "" || salary != "" || esname != "") {
+		sql = "INSERT INTO EMPLOYEE VALUES(";
+		sql += "'" + ssn + "', '" + fname + "', '" + lname + "', '" + salary + "', '" + esname;
+		sql += "')";
+	}
+} else if (src.equals("delete")) {
+	sql = "DELETE EMPLOYEE WHERE 1=1  ";
+	if (ssn != "")
+		sql += "AND DBID = '" + ssn + "' ";
+	if (fname != "")
+		sql += "AND fname = '" + fname + "' ";
+	if (lname != "")
+		sql += "AND lname = '" + lname + "' ";
+	if (salary != "")
+		sql += "AND salary = '" + salary + "' ";
+	if (esname != "")
+		sql += "AND esname = '" + esname + "' ";
+}
+ System.out.println(sql);
 
-// System.out.println(sql);
-pstmt = conn.prepareStatement(sql);
-rs = pstmt.executeQuery();
 %>
 
 <!DOCTYPE html>
@@ -63,6 +82,13 @@ rs = pstmt.executeQuery();
 </head>
 <body>
 	<div>
+	<%
+		try {
+			if (src.equals("select")) {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+		%>
+
 		<table border="1">
 			<thead>
 				<tr>
@@ -90,6 +116,29 @@ rs = pstmt.executeQuery();
 			</tbody>
 		</table>
 		<%=num %>개
+		<%
+		}
+		%>
+		<%
+		if (src.equals("insert")) {
+			if (ssn != "" || fname != "" || lname != "" || salary != "" || esname != "") {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+			} else {
+		%>
+		NO BLANKS!
+		<%
+		}
+		%>
+		<%=sql%>
+		<%
+		}
+		} catch (Exception e) {
+		%>
+		Exception Occur
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>
